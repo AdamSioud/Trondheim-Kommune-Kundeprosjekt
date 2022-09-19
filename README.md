@@ -1,1 +1,1 @@
-# Trondheim Kommune Kunde Prosjekt
+# Trondheim Kommune Kundeprosjekt
