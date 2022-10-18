@@ -1,0 +1,6 @@
+pandas
+geopandas
+folium
+matplotlib
+mapclassify
+shapely
