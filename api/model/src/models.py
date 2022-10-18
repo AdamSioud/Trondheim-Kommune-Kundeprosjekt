@@ -3,16 +3,16 @@
 from shapely.speedups._speedups import Point
 import geopandas as gpd
 
-from api.model.src.parameters.AgeParam import AgeParam
-from api.model.src.parameters.CultureParam import CultureParam
-from api.model.src.parameters.GroceryParam import GroceryParam
-from api.model.src.parameters.OutdoorParam import OutdoorParam
-from api.model.src.parameters.PriceSliderParam import PriceSliderParam
-from api.model.src.parameters.SafetyParam import SafetyParam
-from api.model.src.parameters.TransportParam import TransportParam
-from api.model.src.parameters.WalkwayParam import WalkwayParam
-from api.model.src.parameters.WellBeinParam import WellBeingParam
-from api.model.src.data.Data import Data
+from api.model.src.parameters.age_param import AgeParam
+from api.model.src.parameters.culture_param import CultureParam
+from api.model.src.parameters.grocery_param import GroceryParam
+from api.model.src.parameters.outdoor_param import OutdoorParam
+from api.model.src.parameters.price_slider_param import PriceSliderParam
+from api.model.src.parameters.safety_param import SafetyParam
+from api.model.src.parameters.transport_param import TransportParam
+from api.model.src.parameters.walkway_param import WalkwayParam
+from api.model.src.parameters.well_being_param import WellBeingParam
+from api.model.data import Data
 
 
 class Model:
@@ -49,7 +49,7 @@ class Model:
 param_input = {
     "age_input": {
         "selected": ['underage (0-17)', 'young adult (18-34)'],
-        "percent": 0.5
+        "percent": 0.2
     },
     "price_input": {
         "selected": ['small', "medium"],
@@ -92,4 +92,3 @@ result = model.generate_map(param_input)
 m = result.explore('Score')
 outfp = "../generated_map.html"
 m.save(outfp)
-
