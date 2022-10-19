@@ -12,7 +12,7 @@ from api.model.src.parameters.safety_param import SafetyParam
 from api.model.src.parameters.transport_param import TransportParam
 from api.model.src.parameters.walkway_param import WalkwayParam
 from api.model.src.parameters.well_being_param import WellBeingParam
-from api.model.data import Data
+from server.model.data import Data
 
 
 class Model:

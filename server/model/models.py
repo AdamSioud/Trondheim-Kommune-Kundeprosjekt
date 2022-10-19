@@ -1,1 +1,0 @@
-# folder that contains all the data base model classes with constraints
