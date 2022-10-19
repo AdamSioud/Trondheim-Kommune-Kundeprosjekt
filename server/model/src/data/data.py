@@ -1,6 +1,7 @@
 import pandas as pd
 import geopandas as gpd
 from pathlib import Path
+import json
 
 
 DATASETS = ('Ages', 'Price', 'Nærmiljø')
@@ -56,11 +57,13 @@ class Data:
     def add_general_properties(self, df):
         df = pd.concat([self.GENERAL_DF, df], axis=1)
         return df
-'''
-cf = Path(__file__)
-print(cf)
-'''
 
-
-
-
+    def get_zone_by_id(self, i: int) -> str:
+        with open(self.path_base / 'data2.geojson', "r") as fp:
+            data = json.loads(fp.read())
+        try:
+            data = data['features'][i]['properties']
+            print(len(data))
+            return json.dumps(data)
+        except IndexError:
+            raise IndexError(f'id out of range. Has to be between 0 and {len(data["features"]) - 1}')

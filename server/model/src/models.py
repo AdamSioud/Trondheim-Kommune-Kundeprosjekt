@@ -6,6 +6,7 @@ from pathlib import Path
 
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.parameters.culture_param import CultureParam
+from server.model.src.parameters.distance_param import DistanceParam
 from server.model.src.parameters.grocery_param import GroceryParam
 from server.model.src.parameters.outdoor_param import OutdoorParam
 from server.model.src.parameters.price_slider_param import PriceSliderParam
@@ -22,7 +23,7 @@ class Model:
         self.parameters = [
             PriceSliderParam(self.data),
             AgeParam(self.data),
-            # DistanceParam(self.data),
+            DistanceParam(self.data),
             WellBeingParam(self.data),
             SafetyParam(self.data),
             CultureParam(self.data),
@@ -34,7 +35,7 @@ class Model:
             # NoiseOtherParam(self.data)
         ]
 
-    def generate_map(self, param_input: dict ):
+    def generate_map(self, param_input: dict):
         result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
         result['Score'] = 0
         for param in self.parameters:
@@ -44,6 +45,8 @@ class Model:
                 result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
+    def get_zone_by_id(self, i: int):
+        return self.data.get_zone_by_id(i)
 
 
 # Testing ...
@@ -57,7 +60,7 @@ param_input = {
         "budget": 2400000
     },
     "distance_input": {
-        "posistion": Point (10.39628304564158, 63.433247153410214)
+        "posistion": Point(10.39628304564158, 63.433247153410214)
     },
     "well_being_input": {
         "weight": 4
