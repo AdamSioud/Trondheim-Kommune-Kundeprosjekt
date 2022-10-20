@@ -7,5 +7,5 @@ class ParamInterface(ABC):
         self.data = data
 
     @abstractmethod
-    def calculate_score(self):
+    def calculate_score(self, input_: dict):
         pass

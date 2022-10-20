@@ -1,14 +1,11 @@
-from api.model.src.parameters.param_interface import ParamInterface
+from server.model.src.parameters.param_interface import ParamInterface
 from abc import abstractmethod
 
 
 class SliderParam(ParamInterface):
 
-    def __init__(self, data, min_val: float, max_val: float):
+    def __init__(self, data):
         super().__init__(data)
-        self.min_val = min_val
-        self.max_val = max_val
-        self.pointer = (min_val + max_val) / 2
 
     def _give_score(self, price: float, budget: float, maximum_slider: bool, deviation=0.10) -> int:
         """
@@ -37,6 +34,3 @@ class SliderParam(ParamInterface):
     @abstractmethod
     def calculate_score(self):
         pass
-
-    def get_pointer(self):
-        return self.pointer

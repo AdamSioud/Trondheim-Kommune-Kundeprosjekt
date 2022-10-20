@@ -1,10 +1,10 @@
-from api.model.src.parameters.slider_param import SliderParam
+from server.model.src.parameters.slider_param import SliderParam
 
 
 class PriceSliderParam(SliderParam):
 
-    def __init__(self, data, min_val: float, max_val: float):
-        super().__init__(data, min_val, max_val)
+    def __init__(self, data):
+        super().__init__(data)
         self.INPUT_NAME = "price_input"
 
     def __give_score(self, price, budget) -> int:

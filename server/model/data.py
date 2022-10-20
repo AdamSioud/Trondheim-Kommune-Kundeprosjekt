@@ -1,6 +1,8 @@
 import pandas as pd
 import geopandas as gpd
-import os
+from pathlib import Path
+import json
+
 
 DATASETS = ('Ages', 'Price', 'Nærmiljø')
 GENERAL_PROPERTIES = ('Levekårsone-nummer', 'Levekårsnavn')
@@ -45,8 +47,9 @@ def read_json(file_name: str):
 
 
 class Data:
-    DFS, GENERAL_DF, GEOMETRY = read_geojson('../data2.geojson')
-    INTERVAL_DFS = read_json('../data_interval.json')
+    path_base = Path(__file__).resolve().parent
+    DFS, GENERAL_DF, GEOMETRY = read_geojson(path_base / 'data2.geojson')
+    INTERVAL_DFS = read_json(path_base / 'data_interval.json')
 
     def add_geometry_column(self, df):
         return gpd.GeoDataFrame(df, geometry=self.GEOMETRY)
@@ -55,7 +58,12 @@ class Data:
         df = pd.concat([self.GENERAL_DF, df], axis=1)
         return df
 
-
-
-
-
+    def get_zone_by_id(self, i: int) -> str:
+        with open(self.path_base / 'data2.geojson', "r") as fp:
+            data = json.loads(fp.read())
+        try:
+            data = data['features'][i]['properties']
+            print(len(data))
+            return json.dumps(data)
+        except IndexError:
+            raise IndexError(f'id out of range. Has to be between 0 and {len(data["features"]) - 1}')

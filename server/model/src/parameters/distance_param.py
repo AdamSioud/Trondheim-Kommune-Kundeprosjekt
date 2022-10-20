@@ -1,7 +1,7 @@
 import shapely
 from shapely.geometry import Point
-
-from api.model.src.parameters.param_interface import ParamInterface
+from server.model.src.parameters.param_interface import ParamInterface
+from server.model.src.data.data import Data
 
 
 class DistanceParam(ParamInterface):
@@ -42,13 +42,10 @@ class DistanceParam(ParamInterface):
         return result.filter(items=['Levekårsnavn', 'geometry', 'Score'])
 
 '''
-#testing ...
-data = Data()
-inp = {"distance_input": {
-        "posistion": Point (10.39628304564158, 63.433247153410214)
-    }
+distance_input = {
+    "posistion": Point (10.39628304564158, 63.433247153410214)
 }
-
-dist_param = DistanceParam(data)
-print(dist_param.calculate_score(inp))
+data = Data();
+ages_param = DistanceParam(data)
+print(ages_param.calculate_score(distance_input))
 '''

@@ -1,6 +1,10 @@
 # Trondheim Kommune Kundeprosjekt API
 
 
+<<<<<<< HEAD
+
+https://medium.com/geekculture/how-to-architect-your-flask-rest-api-abf95637d9f5
+=======
 --- Architecture
 
 https://medium.com/geekculture/how-to-architect-your-flask-rest-api-abf95637d9f5
@@ -44,3 +48,4 @@ I followed the instructions [here](https://towardsdatascience.com/geopandas-inst
 11. Go in the project: ``cd ../../Trondheim-Kommune-Kundeprosjekt-API``
 12. Run ``pip install -r requirements.txt``
 
+>>>>>>> main

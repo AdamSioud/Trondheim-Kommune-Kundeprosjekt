@@ -2,7 +2,21 @@
 
 from shapely.speedups._speedups import Point
 import geopandas as gpd
+from pathlib import Path
 
+<<<<<<< HEAD
+from server.model.src.parameters.age_param import AgeParam
+from server.model.src.parameters.culture_param import CultureParam
+from server.model.src.parameters.distance_param import DistanceParam
+from server.model.src.parameters.grocery_param import GroceryParam
+from server.model.src.parameters.outdoor_param import OutdoorParam
+from server.model.src.parameters.price_slider_param import PriceSliderParam
+from server.model.src.parameters.safety_param import SafetyParam
+from server.model.src.parameters.transport_param import TransportParam
+from server.model.src.parameters.walkway_param import WalkwayParam
+from server.model.src.parameters.well_being_param import WellBeingParam
+from server.model.src.data.data import Data
+=======
 from api.model.src.parameters.age_param import AgeParam
 from api.model.src.parameters.culture_param import CultureParam
 from api.model.src.parameters.grocery_param import GroceryParam
@@ -13,15 +27,16 @@ from api.model.src.parameters.transport_param import TransportParam
 from api.model.src.parameters.walkway_param import WalkwayParam
 from api.model.src.parameters.well_being_param import WellBeingParam
 from server.model.data import Data
+>>>>>>> main
 
 
 class Model:
     def __init__(self):
         self.data = Data()
         self.parameters = [
-            PriceSliderParam(self.data, 0, 1),
-            AgeParam(self.data, 0, 1),
-            # DistanceParam(self.data),
+            PriceSliderParam(self.data),
+            AgeParam(self.data),
+            DistanceParam(self.data),
             WellBeingParam(self.data),
             SafetyParam(self.data),
             CultureParam(self.data),
@@ -33,7 +48,7 @@ class Model:
             # NoiseOtherParam(self.data)
         ]
 
-    def generate_map(self, param_input: dict ):
+    def generate_map(self, param_input: dict):
         result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
         result['Score'] = 0
         for param in self.parameters:
@@ -43,6 +58,8 @@ class Model:
                 result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
+    def get_zone_by_id(self, i: int):
+        return self.data.get_zone_by_id(i)
 
 
 # Testing ...
@@ -56,7 +73,7 @@ param_input = {
         "budget": 2400000
     },
     "distance_input": {
-        "posistion": Point (10.39628304564158, 63.433247153410214)
+        "posistion": Point(10.39628304564158, 63.433247153410214)
     },
     "well_being_input": {
         "weight": 4
@@ -90,5 +107,6 @@ param_input = {
 model = Model()
 result = model.generate_map(param_input)
 m = result.explore('Score')
-outfp = "../generated_map.html"
+path_base = Path(__file__).resolve().parent
+outfp = path_base / "../generated_map.html"
 m.save(outfp)
