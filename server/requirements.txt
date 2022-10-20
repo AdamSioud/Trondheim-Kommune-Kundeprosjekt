@@ -1,5 +1,8 @@
 pandas
 geopandas
+Flask
+flask_cors
+flask_restfulpi
 folium
 matplotlib
 mapclassify

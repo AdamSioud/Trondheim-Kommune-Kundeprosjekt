@@ -4,6 +4,7 @@ from shapely.speedups._speedups import Point
 import geopandas as gpd
 from pathlib import Path
 
+<<<<<<< HEAD
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.parameters.culture_param import CultureParam
 from server.model.src.parameters.distance_param import DistanceParam
@@ -15,6 +16,18 @@ from server.model.src.parameters.transport_param import TransportParam
 from server.model.src.parameters.walkway_param import WalkwayParam
 from server.model.src.parameters.well_being_param import WellBeingParam
 from server.model.src.data.data import Data
+=======
+from api.model.src.parameters.age_param import AgeParam
+from api.model.src.parameters.culture_param import CultureParam
+from api.model.src.parameters.grocery_param import GroceryParam
+from api.model.src.parameters.outdoor_param import OutdoorParam
+from api.model.src.parameters.price_slider_param import PriceSliderParam
+from api.model.src.parameters.safety_param import SafetyParam
+from api.model.src.parameters.transport_param import TransportParam
+from api.model.src.parameters.walkway_param import WalkwayParam
+from api.model.src.parameters.well_being_param import WellBeingParam
+from server.model.data import Data
+>>>>>>> main
 
 
 class Model:
