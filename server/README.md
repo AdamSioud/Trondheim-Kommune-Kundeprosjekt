@@ -35,16 +35,16 @@ I followed the instructions [here](https://towardsdatascience.com/geopandas-inst
 ## Installation (MAC)
 
 1. Install [python](https://www.python.org/downloads/)
-2. Check if pip is installed: ``pip --version``
-3. Clone this repository: ``git clone https://github.com/AdamSioud/Trondheim-Kommune-Kundeprosjekt-API.git``
-4. In the parent folder of the repository, create a new environment: ``python -m venv ./venv``
-5. Activate the environment: ``./venv/Scripts/activate``
-6. Upgrade pip and install wheel: ``python -m pip install -U pip wheel setuptools``
+2. Check if pip is installed: ``pip3 --version``
+3. Clone this repository: ``git clone https://github.com/AdamSioud/Trondheim-Kommune-Kundeprosjekt.git``
+4. In the parent folder of the repository, create a new environment: ``python3 -m venv ./venv``
+5. Activate the environment: ``chmod +x ./venv/bin/activate``
+6. Upgrade pip and install wheel: ``python3 -m pip install -U pip wheel setuptools``
 7. Install GDAL: ``brew install gdal``
 8. Search for file ``Python.h`` (probably here: ``/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/Headers``)
-9. Depending on your terminal, open the configuration file (e.g. for zsh: ``open -e $path_of_home$/zprofile``) and write ``export C_INCLUDE_PATH=$path_to_Python.h_folder$``
-10. ``pip install`` on the following packages ``Fiona Pyproj Shapely``
+9. Depending on your terminal, open the configuration file (e.g. for zsh: ``open -e $path_of_home$/.zprofile``) and write ``export C_INCLUDE_PATH=$path_to_Python.h_folder$``
+10. ``pip3 install`` on the following packages ``Fiona Pyproj Shapely``
 11. Go in the project: ``cd ../../Trondheim-Kommune-Kundeprosjekt-API``
-12. Run ``pip install -r requirements.txt``
+12. Run ``pip3 install -r requirements.txt``
 
 
