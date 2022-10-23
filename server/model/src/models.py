@@ -52,46 +52,46 @@ class Model:
 
 
 # Testing ...
-param_input = {
-    "age_input": {
-        "selected": ['underage (0-17)', 'young adult (18-34)'],
-        "percent": 0.2
-    },
-    "price_input": {
-        "selected": ['small', "medium"],
-        "budget": 2400000
-    },
-    "distance_input": {
-        "posistion": Point(10.39628304564158, 63.433247153410214)
-    },
-    "well_being_input": {
-        "weight": 4
-    },
-    "safety_input": {
-        "weight": 4
-    },
-    "culture_input": {
-        "weight": 4
-    },
-    "outdoor_input": {
-        "weight": 4
-    },
-    "transport_input": {
-        "weight": 4
-    },
-    "walkway_input": {
-        "weight": 4
-    },
-    "noise_traffic_input": {
-        "weight": 4
-    },
-    "noise_other_input": {
-        "weight": 4
-    },
-    "grocery_input": {
-        "weight": 4
-    }
-}
+# param_input = {
+#     "age_input": {
+#         "selected": ['underage (0-17)', 'young adult (18-34)'],
+#         "percent": 0.2
+#     },
+#     "price_input": {
+#         "selected": ['small', "medium"],
+#         "budget": 2400000
+#     },
+#     "distance_input": {
+#         "posistion": Point(10.39628304564158, 63.433247153410214)
+#     },
+#     "well_being_input": {
+#         "weight": 4
+#     },
+#     "safety_input": {
+#         "weight": 4
+#     },
+#     "culture_input": {
+#         "weight": 4
+#     },
+#     "outdoor_input": {
+#         "weight": 4
+#     },
+#     "transport_input": {
+#         "weight": 4
+#     },
+#     "walkway_input": {
+#         "weight": 4
+#     },
+#     "noise_traffic_input": {
+#         "weight": 4
+#     },
+#     "noise_other_input": {
+#         "weight": 4
+#     },
+#     "grocery_input": {
+#         "weight": 4
+#     }
+# }
 
 # model = Model()
 # result = model.generate_map(param_input)
