@@ -1,19 +1,24 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_cors import CORS, cross_origin
+
+from server.model.src.models import Model
+
 # from model.models import Classes
 
 
 app = Flask(__name__)
 api = Api(app)
-
-
+CORS(app)
 
 class Map(Resource):
-    def get(self):
+    def post(self):
         # Run function in service
         # res = main(param_input)
         # return main(param_input)
-        return {'Map': 'This is our map'}
+        print(request.json)
+        model = Model()
+        return model.generate_map(request.json)
 
 
 

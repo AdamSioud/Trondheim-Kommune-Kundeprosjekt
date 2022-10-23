@@ -1,4 +1,4 @@
-from parameters.param_interface import ParamInterface
+from server.model.src.parameters.param_interface import ParamInterface
 
 
 class EnvironmentParam(ParamInterface):
