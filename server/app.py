@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS, cross_origin
@@ -16,9 +18,18 @@ class Map(Resource):
         # Run function in service
         # res = main(param_input)
         # return main(param_input)
-        print(request.json)
         model = Model()
-        return model.generate_map(request.json)
+        result = model.generate_map(request.json)
+        global_properties = {
+            "scoreMin": result['Score'].min(),
+            "scoreMax": result['Score'].max()
+        }
+        result = {
+            "geoJSONGlobalProperties": global_properties,
+            "geoJSON": result.to_json(),
+            "request": request.json
+        }
+        return result
 
 
 
