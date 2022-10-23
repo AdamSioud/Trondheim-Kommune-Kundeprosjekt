@@ -1,4 +1,4 @@
-from server.model.src.parameters.slider_param import SliderParam
+from  parameters.slider_param import SliderParam
 
 
 class PriceSliderParam(SliderParam):

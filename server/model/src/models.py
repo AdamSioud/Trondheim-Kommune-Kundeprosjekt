@@ -5,17 +5,17 @@ import geopandas as gpd
 from pathlib import Path
 
 
-from server.model.src.parameters.age_param import AgeParam
-from server.model.src.parameters.culture_param import CultureParam
-from server.model.src.parameters.distance_param import DistanceParam
-from server.model.src.parameters.grocery_param import GroceryParam
-from server.model.src.parameters.outdoor_param import OutdoorParam
-from server.model.src.parameters.price_slider_param import PriceSliderParam
-from server.model.src.parameters.safety_param import SafetyParam
-from server.model.src.parameters.transport_param import TransportParam
-from server.model.src.parameters.walkway_param import WalkwayParam
-from server.model.src.parameters.well_being_param import WellBeingParam
-from server.model.src.data.data import Data
+from parameters.age_param import AgeParam
+from parameters.culture_param import CultureParam
+from parameters.distance_param import DistanceParam
+from parameters.grocery_param import GroceryParam
+from parameters.outdoor_param import OutdoorParam
+from parameters.price_slider_param import PriceSliderParam
+from parameters.safety_param import SafetyParam
+from parameters.transport_param import TransportParam
+from parameters.walkway_param import WalkwayParam
+from parameters.well_being_param import WellBeingParam
+from data.data import Data
 
 
 

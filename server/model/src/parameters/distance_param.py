@@ -1,7 +1,7 @@
 import shapely
 from shapely.geometry import Point
-from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
+from parameters.param_interface import ParamInterface
+from data.data import Data
 
 
 class DistanceParam(ParamInterface):

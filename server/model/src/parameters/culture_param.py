@@ -1,4 +1,4 @@
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from parameters.environment_param_interface import EnvironmentParam
 
 
 class CultureParam(EnvironmentParam):

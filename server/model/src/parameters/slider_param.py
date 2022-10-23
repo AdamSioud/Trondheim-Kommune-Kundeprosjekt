@@ -1,4 +1,4 @@
-from server.model.src.parameters.param_interface import ParamInterface
+from parameters.param_interface import ParamInterface
 from abc import abstractmethod
 
 

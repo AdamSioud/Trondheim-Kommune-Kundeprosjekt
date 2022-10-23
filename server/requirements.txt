@@ -2,7 +2,7 @@ pandas
 geopandas
 Flask
 flask_cors
-flask_restfulpi
+flask_restful
 folium
 matplotlib
 mapclassify
