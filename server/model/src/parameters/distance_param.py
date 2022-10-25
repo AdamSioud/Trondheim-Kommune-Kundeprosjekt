@@ -32,20 +32,22 @@ class DistanceParam(ParamInterface):
 
         input-format:
         input_ = {
-            posistion: POINT (10.39628304564158 63.433247153410214)
+            position: POINT (10.39628304564158 63.433247153410214),
+            weight: 4
         }
         """
         result = self.data.add_geometry_column(self.data.GENERAL_DF)
-        pos = input_.get('posistion')
-        result['Score'] = result['geometry'].apply(lambda x: self.give_score(x, pos))
+        pos = input_.get('position')
+        weight = input_['weight']
+        result['Score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
 
         return result.filter(items=['Levekårsnavn', 'geometry', 'Score'])
 
-'''
-distance_input = {
-    "posistion": Point (10.39628304564158, 63.433247153410214)
-}
-data = Data();
-ages_param = DistanceParam(data)
-print(ages_param.calculate_score(distance_input))
-'''
+
+# distance_input = {
+#     "position": Point (10.39628304564158, 63.433247153410214),
+#     "weight": 4
+# }
+# data = Data();
+# ages_param = DistanceParam(data)
+# print(ages_param.calculate_score(distance_input).head())
