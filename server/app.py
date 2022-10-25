@@ -13,21 +13,27 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
+MODEL = Model()
+
 class Map(Resource):
+
     def post(self):
         # Run function in service
         # res = main(param_input)
         # return main(param_input)
-        model = Model()
-        result = model.generate_map(request.json)
+
+        # model = Model()
+        # result = model.generate_map(request.json)
+        result = MODEL.generate_map(request.json)
+
         global_properties = {
             "scoreMin": result['Score'].min(),
             "scoreMax": result['Score'].max()
         }
+
         result = {
             "geoJSONGlobalProperties": global_properties,
-            "geoJSON": result.to_json(),
-            "request": request.json
+            "geoJSON": result.to_json()
         }
         return result
 
@@ -47,4 +53,4 @@ api.add_resource(ZoneData, '/ZoneData')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

@@ -2,9 +2,8 @@
 
 from shapely.speedups._speedups import Point
 import geopandas as gpd
+import pandas as pd
 from pathlib import Path
-
-
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.parameters.culture_param import CultureParam
 from server.model.src.parameters.distance_param import DistanceParam
@@ -15,8 +14,8 @@ from server.model.src.parameters.safety_param import SafetyParam
 from server.model.src.parameters.transport_param import TransportParam
 from server.model.src.parameters.walkway_param import WalkwayParam
 from server.model.src.parameters.well_being_param import WellBeingParam
+from server.model.src.parameters.noise_param import NoiseParam
 from server.model.src.data.data import Data
-
 
 
 class Model:
@@ -31,10 +30,9 @@ class Model:
             CultureParam(self.data),
             OutdoorParam(self.data),
             TransportParam(self.data),
-            GroceryParam(self.data),
             WalkwayParam(self.data),
-            # NoiseTrafficParam(self.data),
-            # NoiseOtherParam(self.data)
+            GroceryParam(self.data),
+            NoiseParam(self.data)
         ]
 
     def generate_map(self, param_input: dict):
@@ -45,6 +43,12 @@ class Model:
                 inp = param_input[param.INPUT_NAME]
                 tmp = param.calculate_score(inp)
                 result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
+            elif param.INPUT_NAME in param_input['environment'].keys():
+                inp = param_input['environment'][param.INPUT_NAME]
+                tmp = param.calculate_score(inp)
+                result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
+
+        result['Score'] = pd.qcut(result['Score'], 10, labels=False)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
@@ -52,50 +56,56 @@ class Model:
 
 
 # Testing ...
-# param_input = {
-#     "age_input": {
-#         "selected": ['underage (0-17)', 'young adult (18-34)'],
-#         "percent": 0.2
-#     },
-#     "price_input": {
-#         "selected": ['small', "medium"],
-#         "budget": 2400000
-#     },
-#     "distance_input": {
-#         "posistion": Point(10.39628304564158, 63.433247153410214)
-#     },
-#     "well_being_input": {
-#         "weight": 4
-#     },
-#     "safety_input": {
-#         "weight": 4
-#     },
-#     "culture_input": {
-#         "weight": 4
-#     },
-#     "outdoor_input": {
-#         "weight": 4
-#     },
-#     "transport_input": {
-#         "weight": 4
-#     },
-#     "walkway_input": {
-#         "weight": 4
-#     },
-#     "noise_traffic_input": {
-#         "weight": 4
-#     },
-#     "noise_other_input": {
-#         "weight": 4
-#     },
-#     "grocery_input": {
-#         "weight": 4
-#     }
-# }
+param_input = {
+    "age_input": {
+        "selected": ['underage (0-17)', 'young adult (18-34)'],
+        "percent": 0.2,
+        "weight": 4
+    },
+    "price_input": {
+        "selected": ['small', "medium"],
+        "budget": 2400000,
+        "weight": 4
+    },
+    "distance_input": {
+        "position": Point(10.39628304564158, 63.433247153410214),
+        "weight": 4
+    },
+    "environment": {
+        "well_being_input": {
+            "weight": 4
+        },
+        "safety_input": {
+            "weight": 1
+        },
+        "culture_input": {
+            "weight": 4
+        },
+        "outdoor_input": {
+            "weight": 4
+        },
+        "transport_input": {
+            "weight": 4
+        },
+        "walkway_input": {
+            "weight": 4
+        },
+        "grocery_input": {
+            "weight": 4
+        },
+        "noise_input": {
+            "weight": 4
+        }
+    }
+}
 
-# model = Model()
-# result = model.generate_map(param_input)
-# m = result.explore('Score')
-# path_base = Path(__file__).resolve().parent
-# outfp = path_base / "../generated_map.html"
-# m.save(outfp)
+model = Model()
+result = model.generate_map(param_input)
+
+with open("sample.json", "w") as outfile:
+    outfile.write(result.to_json())
+
+m = result.explore('Score')
+path_base = Path(__file__).resolve().parent
+outfp = path_base / "../generated_map.html"
+m.save(outfp)

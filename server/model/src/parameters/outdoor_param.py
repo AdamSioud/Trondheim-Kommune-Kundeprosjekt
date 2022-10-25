@@ -1,4 +1,5 @@
 from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from server.model.src.data.data import Data
 
 
 class OutdoorParam(EnvironmentParam):
@@ -6,13 +7,14 @@ class OutdoorParam(EnvironmentParam):
     def __init__(self, data):
         super().__init__(data, 'tilgjengelighet friluftsområder')
         self.INPUT_NAME = 'outdoor_input'
-'''
-# Testing ...
-data = Data()
-outdoor_input = {
-    'weight' : 4
-}
 
-odp = OutdoorParam(data)
-print(odp.calculate_score(outdoor_input).head())
-'''
+
+# # Testing ...
+# data = Data()
+# outdoor_input = {
+#     'weight' : 4
+# }
+#
+# odp = OutdoorParam(data)
+# print(odp.calculate_score(outdoor_input).head())
+
