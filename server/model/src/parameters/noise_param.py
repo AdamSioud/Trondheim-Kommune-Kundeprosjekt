@@ -47,6 +47,7 @@ class NoiseParam(ParamInterface):
         return result.filter(items=['Score'])
 
 
+'''
 # Testing ...
 data = Data()
 noise_input = {
@@ -55,3 +56,4 @@ noise_input = {
 
 op = NoiseParam(data)
 print(op.calculate_score(noise_input))
+'''

@@ -13,7 +13,8 @@ class AgeParam(SliderParam):
 
     def calculate_score(self, input_: dict):
         result = self.data.DFS.get('Ages').copy()
-        budget = input_['percent']
+        budget = input_['percent'] / 100
+        print(budget)
         clms = []
         for sel in input_['selected']:
             clms.append(sel + ".Andel")
@@ -24,11 +25,13 @@ class AgeParam(SliderParam):
         return result.filter(items=['Levekårsnavn', 'Score'])
 
 
-# age_input = {
-#     "selected": ['underage (0-17)', 'young adult (18-34)'],
-#     "percent": 0.50,
-#     "weight": 4
-# }
-# data = Data()
-# ages_param = AgeParam(data)
-# print(ages_param.calculate_score(age_input))
+'''
+age_input = {
+    "selected": ['underage (0-17)', 'young adult (18-34)'],
+    "percent": 50,
+    "weight": 1
+}
+data = Data()
+ages_param = AgeParam(data)
+print(ages_param.calculate_score(age_input))
+'''
