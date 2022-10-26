@@ -9,7 +9,7 @@ class SafetyParam(EnvironmentParam):
         super().__init__(data, 'trygghet')
         self.INPUT_NAME = 'safety_input'
 
-
+'''
 # Testing ...
 data = Data()
 
@@ -19,4 +19,4 @@ safety_input = {
 
 sp = SafetyParam(data)
 print(sp.calculate_score(safety_input).head())
-
+'''

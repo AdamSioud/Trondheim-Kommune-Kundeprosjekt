@@ -16,6 +16,7 @@ from server.model.src.parameters.walkway_param import WalkwayParam
 from server.model.src.parameters.well_being_param import WellBeingParam
 from server.model.src.parameters.noise_param import NoiseParam
 from server.model.src.data.data import Data
+import time
 
 
 class Model:
@@ -36,6 +37,7 @@ class Model:
         ]
 
     def generate_map(self, param_input: dict):
+        print((param_input))
         result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
         result['Score'] = 0
         for param in self.parameters:
@@ -43,12 +45,22 @@ class Model:
                 inp = param_input[param.INPUT_NAME]
                 tmp = param.calculate_score(inp)
                 result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
-            elif param.INPUT_NAME in param_input['environment'].keys():
-                inp = param_input['environment'][param.INPUT_NAME]
-                tmp = param.calculate_score(inp)
-                result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
-
-        result['Score'] = pd.qcut(result['Score'], 10, labels=False)
+            elif 'environment' in param_input.keys():
+                if param.INPUT_NAME in param_input['environment'].keys():
+                    inp = param_input['environment'][param.INPUT_NAME]
+                    tmp = param.calculate_score(inp)
+                    result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
+        result['Score'] = result['Score'].astype(float)
+        # ---
+        # res: gpd.GeoDataFrame = gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
+        # m = res.explore('Score')
+        # path_base = Path(__file__).resolve().parent
+        # outfp = path_base / "../generated_map.html"
+        # m.save(outfp)
+        # ---
+        # print('result: ', result['Score'])
+        # print('res: ', res['Score'])
+        # result['Score'] = pd.qcut(result['Score'], 10, labels=False)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
@@ -56,10 +68,10 @@ class Model:
 
 
 # Testing ...
-param_input = {
+par_input = {
     "age_input": {
         "selected": ['underage (0-17)', 'young adult (18-34)'],
-        "percent": 0.2,
+        "percent": 10,
         "weight": 4
     },
     "price_input": {
@@ -100,12 +112,12 @@ param_input = {
 }
 
 model = Model()
-result = model.generate_map(param_input)
+res = model.generate_map(par_input)
 
-with open("sample.json", "w") as outfile:
-    outfile.write(result.to_json())
+# with open("sample.json", "w") as outfile:
+#     outfile.write(res.to_json())
 
-m = result.explore('Score')
+m = res.explore('Score')
 path_base = Path(__file__).resolve().parent
 outfp = path_base / "../generated_map.html"
 m.save(outfp)
