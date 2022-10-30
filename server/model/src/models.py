@@ -9,21 +9,20 @@ from server.model.src.parameters.culture_param import CultureParam
 from server.model.src.parameters.distance_param import DistanceParam
 from server.model.src.parameters.grocery_param import GroceryParam
 from server.model.src.parameters.outdoor_param import OutdoorParam
-from server.model.src.parameters.price_slider_param import PriceSliderParam
+from server.model.src.parameters.price_param import PriceParam
 from server.model.src.parameters.safety_param import SafetyParam
 from server.model.src.parameters.transport_param import TransportParam
 from server.model.src.parameters.walkway_param import WalkwayParam
 from server.model.src.parameters.well_being_param import WellBeingParam
 from server.model.src.parameters.noise_param import NoiseParam
 from server.model.src.data.data import Data
-import time
 
 
 class Model:
     def __init__(self):
         self.data = Data()
         self.parameters = [
-            PriceSliderParam(self.data),
+            PriceParam(self.data),
             AgeParam(self.data),
             DistanceParam(self.data),
             WellBeingParam(self.data),
@@ -33,11 +32,11 @@ class Model:
             TransportParam(self.data),
             WalkwayParam(self.data),
             GroceryParam(self.data),
+            SafetyParam(self.data),
             NoiseParam(self.data)
         ]
 
-    def generate_map(self, param_input: dict):
-        print((param_input))
+    def calculate_scores(self, param_input: dict):
         result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
         result['Score'] = 0
         for param in self.parameters:
@@ -50,17 +49,13 @@ class Model:
                     inp = param_input['environment'][param.INPUT_NAME]
                     tmp = param.calculate_score(inp)
                     result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
+        # result['Score'] = pd.qcut(result['Score'], 5, labels=False, duplicates='drop')
         result['Score'] = result['Score'].astype(float)
-        # ---
-        # res: gpd.GeoDataFrame = gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
-        # m = res.explore('Score')
-        # path_base = Path(__file__).resolve().parent
-        # outfp = path_base / "../generated_map.html"
-        # m.save(outfp)
-        # ---
-        # print('result: ', result['Score'])
-        # print('res: ', res['Score'])
-        # result['Score'] = pd.qcut(result['Score'], 10, labels=False)
+        print(type(result))
+        return result
+
+    def generate_map(self, param_input: dict):
+        result = self.calculate_scores(param_input)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
@@ -121,3 +116,4 @@ m = res.explore('Score')
 path_base = Path(__file__).resolve().parent
 outfp = path_base / "../generated_map.html"
 m.save(outfp)
+
