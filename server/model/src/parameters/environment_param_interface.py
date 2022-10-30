@@ -3,7 +3,6 @@ from server.model.src.parameters.param_interface import ParamInterface
 
 class EnvironmentParam(ParamInterface):
     """Abstract"""
-
     def __init__(self, data, category):
         super().__init__(data)
         self.category = category
@@ -28,11 +27,17 @@ class EnvironmentParam(ParamInterface):
                 return i + 1
         return 5
 
+    def validate_input(self, input_):
+        weight = input_['weight']
+        if weight < 1 or weight > 5:
+            raise ValueError(f"'weight' needs to be between 1 and 5, was {weight}")
+
     def calculate_score(self, input_: dict):
         """
         Insert description here
         """
-        result = self.data.DFS.get('Nærmiljø').copy()
+        self.validate_input(input_)
+        result = self.make_df_copy('Nærmiljø')
         result['Score-kvinner'] = result[self.category + '-kvinner.Andel'].apply(lambda x: self.give_score(x))
         result['Score-menn'] = result[self.category + '-menn.Andel'].apply(lambda x: self.give_score(x))
 

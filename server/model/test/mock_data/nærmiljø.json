@@ -1,0 +1,128 @@
+{
+  "trivsel-kvinner.Andel": {
+    "0": 0.77,
+    "1": 0.81,
+    "2": 0.74,
+    "3": 0.7,
+    "4": 0.78
+  },
+  "trivsel-menn.Andel": {
+    "0": 0.66,
+    "1": 0.78,
+    "2": 0.67,
+    "3": 0.65,
+    "4": 0.72
+  },
+  "trygghet-kvinner.Andel": {
+    "0": 0.82,
+    "1": 0.9,
+    "2": 0.8,
+    "3": 0.84,
+    "4": 0.91
+  },
+  "trygghet-menn.Andel": {
+    "0": 0.83,
+    "1": 0.94,
+    "2": 0.82,
+    "3": 0.87,
+    "4": 0.94
+  },
+  "tilgjengelighet kultur-kvinner.Andel": {
+    "0": 0.63,
+    "1": 0.61,
+    "2": 0.68,
+    "3": 0.64,
+    "4": 0.67
+  },
+  "tilgjengelighet kultur-menn.Andel": {
+    "0": 0.55,
+    "1": 0.59,
+    "2": 0.58,
+    "3": 0.59,
+    "4": 0.6
+  },
+  "tilgjengelighet friluftsomr\u00e5der-kvinner.Andel": {
+    "0": 0.66,
+    "1": 0.87,
+    "2": 0.52,
+    "3": 0.44,
+    "4": 0.47
+  },
+  "tilgjengelighet friluftsomr\u00e5der-menn.Andel": {
+    "0": 0.66,
+    "1": 0.85,
+    "2": 0.51,
+    "3": 0.53,
+    "4": 0.5
+  },
+  "tilgjengelighet offentlig transport-kvinner.Andel": {
+    "0": 0.52,
+    "1": 0.34,
+    "2": 0.61,
+    "3": 0.56,
+    "4": 0.42
+  },
+  "tilgjengelighet offentlig transport-menn.Andel": {
+    "0": 0.47,
+    "1": 0.3,
+    "2": 0.55,
+    "3": 0.54,
+    "4": 0.44
+  },
+  "tilgjengelighet butikker-kvinner.Andel": {
+    "0": 0.74,
+    "1": 0.68,
+    "2": 0.84,
+    "3": 0.78,
+    "4": 0.76
+  },
+  "tilgjengelighet butikker-menn.Andel": {
+    "0": 0.69,
+    "1": 0.64,
+    "2": 0.79,
+    "3": 0.77,
+    "4": 0.73
+  },
+  "tilgjengelighet gang og sykkelvei-kvinner.Andel": {
+    "0": 0.47,
+    "1": 0.22,
+    "2": 0.43,
+    "3": 0.45,
+    "4": 0.36
+  },
+  "tilgjengelighet gang og sykkelvei-menn.Andel": {
+    "0": 0.45,
+    "1": 0.22,
+    "2": 0.4,
+    "3": 0.42,
+    "4": 0.38
+  },
+  "plaget av trafikk st\u00f8y-kvinner.Andel": {
+    "0": 0.13,
+    "1": 0.06,
+    "2": 0.14,
+    "3": 0.2,
+    "4": 0.09
+  },
+  "plaget av trafikk st\u00f8y-menn.Andel": {
+    "0": 0.14,
+    "1": 0.04,
+    "2": 0.18,
+    "3": 0.18,
+    "4": 0.08
+  },
+  "plaget av annen st\u00f8y-kvinner.Andel": {
+    "0": 0.11,
+    "1": 0.06,
+    "2": 0.14,
+    "3": 0.19,
+    "4": 0.09
+  },
+  "plaget av annen st\u00f8y-menn.Andel": {
+    "0": 0.12,
+    "1": 0.04,
+    "2": 0.23,
+    "3": 0.2,
+    "4": 0.09
+  }
+}
