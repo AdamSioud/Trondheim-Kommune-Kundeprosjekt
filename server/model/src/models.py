@@ -32,11 +32,11 @@ class Model:
             TransportParam(self.data),
             WalkwayParam(self.data),
             GroceryParam(self.data),
-            SafetyParam(self.data)
+            SafetyParam(self.data),
+            NoiseParam(self.data)
         ]
 
-    def generate_map(self, param_input: dict):
-        print((param_input))
+    def calculate_scores(self, param_input: dict):
         result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
         result['Score'] = 0
         for param in self.parameters:
@@ -49,17 +49,13 @@ class Model:
                     inp = param_input['environment'][param.INPUT_NAME]
                     tmp = param.calculate_score(inp)
                     result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
-        # ---
-        # res: gpd.GeoDataFrame = gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
-        # m = res.explore('Score')
-        # path_base = Path(__file__).resolve().parent
-        # outfp = path_base / "../generated_map.html"
-        # m.save(outfp)
-        # ---
-        # print('result: ', result['Score'])
-        # print('res: ', res['Score'])
         # result['Score'] = pd.qcut(result['Score'], 5, labels=False, duplicates='drop')
         result['Score'] = result['Score'].astype(float)
+        print(type(result))
+        return result
+
+    def generate_map(self, param_input: dict):
+        result = self.calculate_scores(param_input)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
@@ -109,7 +105,7 @@ par_input = {
         }
     }
 }
-'''
+
 model = Model()
 res = model.generate_map(par_input)
 
@@ -120,4 +116,4 @@ m = res.explore('Score')
 path_base = Path(__file__).resolve().parent
 outfp = path_base / "../generated_map.html"
 m.save(outfp)
-'''
+
