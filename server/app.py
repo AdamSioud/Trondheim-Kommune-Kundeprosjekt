@@ -37,19 +37,31 @@ class Map(Resource):
         }
         return result
 
+class Score(Resource):
+    def post(self):
+        result = MODEL.calculate_scores(request.json)
 
-
+        global_properties = {
+            "scoreMin": result['Score'].min(),
+            "scoreMax": result['Score'].max()
+        }
+        new_max = global_properties.get("scoreMax") - global_properties.get("scoreMin")
+        for i, row in result.iterrows():
+            print(i, result['Score'][i], (result['Score'][i] - global_properties.get("scoreMin")) * 100 / new_max)
+            result.at[i, 'Score'] = (result['Score'][i] - global_properties.get("scoreMin")) * 100 / new_max
+        return result.to_json()
 
 """ This should take in an ID which is the levekår sone """
 
 class ZoneData(Resource):
-    def get(self):
-        return {'Ila': 'Here is all the data'}
+    def get(self, zone_id):
+        return MODEL.get_zone_by_id(zone_id)
 
 
-api.add_resource(Map, '/Map')
+api.add_resource(Map, '/map')
+api.add_resource(Score, '/score')
+api.add_resource(ZoneData, '/zone/<int:zone_id>')
 
-api.add_resource(ZoneData, '/ZoneData')
 
 
 if __name__ == '__main__':
