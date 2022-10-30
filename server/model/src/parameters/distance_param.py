@@ -1,7 +1,6 @@
 import shapely
 from shapely.geometry import Point
 from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
 
 
 class DistanceParam(ParamInterface):
@@ -26,6 +25,17 @@ class DistanceParam(ParamInterface):
             limit += increment
         return 0
 
+    def make_df_copy(self):
+        return self.data.add_geometry_column(self.data.GENERAL_DF)
+
+    def validate_input(self, input_):
+        for arg in ['position', 'weight']:
+            if arg not in input_.keys():
+                raise ValueError(f"input must contain ['position', 'weight'], did contain:  {input_.keys()}")
+        weight = input_['weight']
+        if weight < 1 or weight > 5:
+            raise ValueError(f"'weight' needs to be between 1 and 5, was {weight}")
+
     def calculate_score(self, input_: dict) -> float:
         """
         Calculates the distance from centroid of an area to the coordinates of the point
@@ -36,18 +46,19 @@ class DistanceParam(ParamInterface):
             weight: 4
         }
         """
-        result = self.data.add_geometry_column(self.data.GENERAL_DF)
+        self.validate_input(input_)
+        result = self.make_df_copy()
         pos = input_.get('position')
         weight = input_['weight']
         result['Score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
-
         return result.filter(items=['Levekårsnavn', 'geometry', 'Score'])
 
-
-# distance_input = {
-#     "position": Point (10.39628304564158, 63.433247153410214),
-#     "weight": 4
-# }
-# data = Data();
-# ages_param = DistanceParam(data)
-# print(ages_param.calculate_score(distance_input).head())
+'''
+distance_input = {
+    "position": Point (10.39628304564158, 63.433247153410214),
+    "weight": 4
+}
+data = Data();
+ages_param = DistanceParam(data)
+print(ages_param.calculate_score(distance_input).head())
+'''

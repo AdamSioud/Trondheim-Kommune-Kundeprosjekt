@@ -7,5 +7,12 @@ class ParamInterface(ABC):
         self.data = data
 
     @abstractmethod
-    def calculate_score(self, input_: dict):
+    def give_score(self, *args):
+        pass
+
+    def make_df_copy(self, name: str):
+        return self.data.DFS.get(name).copy()
+
+    @abstractmethod
+    def calculate_score(self, inp: dict):
         pass
