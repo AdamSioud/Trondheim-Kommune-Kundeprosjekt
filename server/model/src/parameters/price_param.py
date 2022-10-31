@@ -1,5 +1,4 @@
 from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
 
 
 class PriceParam(ParamInterface):
@@ -24,43 +23,27 @@ class PriceParam(ParamInterface):
             max_ += budget * deviation / 4
         return 0
 
-    def calculate_score(self, input_: dict) -> float:
+    def validate_input(self, input_):
+        self.validate_args(input_, ['budget', 'weight'])
+        self.validate_weight(input_)
+        budget = input_['budget']
+        if budget < 0:
+            raise ValueError(f"'budget' needs to be more than 0, was {budget}")
+
+    def calculate_score(self, input_: dict):
         """
         Calculates the score for each value in the selected coulmns. Then stores the
         largest for each row.
 
         input-format:
         input_ = {
-            selected: ["coulmn_1", "coulmn_2"],
             price: 12345
         }
         """
-        result = self.data.DFS.get('Price').copy()
-        score_coulmns = []
+        self.validate_input(input_)
+        result = self.make_df_copy('Price')
         budget = input_['budget']
         weight = input_['weight']
-        for sel in input_['selected']:
-            clm = sel + '.Gjennomsnittspris'
-            score_clm = 'Score-' + sel
-            score_coulmns.append(score_clm)
-            result['Score-' + sel] = result[clm].apply(lambda price: self.give_score(price, budget) * weight)
-        result['Score'] = result[score_coulmns].max(axis=1)
+        clm = 'average.Gjennomsnittspris'
+        result['Score'] = result[clm].apply(lambda price: self.give_score(price, budget) * weight)
         return result.filter(items=['Levekårsnavn', 'Score'])
-
-
-
-# # testing...
-data = Data()
-#
-# price_slider = PriceSliderParam(data)
-# price_input = {
-#     "selected": ['small', "medium"],
-#     "budget": 2600000,
-#     'weight': 4
-# }
-#
-# print(price_slider.calculate_score(price_input).head())
-
-resu = data.DFS.get('Price').copy()
-with open("ages.json", "w") as outfile:
-    outfile.write(resu.head().to_json())

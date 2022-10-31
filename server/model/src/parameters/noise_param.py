@@ -1,6 +1,5 @@
 from server.model.src.parameters.environment_param_interface import EnvironmentParam
 from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
 
 
 class NoiseTrafficParam(EnvironmentParam):
@@ -45,18 +44,5 @@ class NoiseParam(ParamInterface):
         pass
 
     def calculate_score(self, input_):
-        result = (NoiseTrafficParam(self.data).calculate_score(input_) \
-                + NoiseOtherParam(self.data).calculate_score(input_)) / 2
+        result = (NoiseTrafficParam(self.data).calculate_score(input_) + NoiseOtherParam(self.data).calculate_score(input_)) / 2
         return result.filter(items=['Score'])
-
-
-'''
-# Testing ...
-data = Data()
-noise_input = {
-    'weight': 4
-}
-
-op = NoiseParam(data)
-print(op.calculate_score(noise_input))
-'''

@@ -28,9 +28,8 @@ class EnvironmentParam(ParamInterface):
         return 5
 
     def validate_input(self, input_):
-        weight = input_['weight']
-        if weight < 1 or weight > 5:
-            raise ValueError(f"'weight' needs to be between 1 and 5, was {weight}")
+        self.validate_args(input_, ['weight'])
+        self.validate_weight(input_)
 
     def calculate_score(self, input_: dict):
         """

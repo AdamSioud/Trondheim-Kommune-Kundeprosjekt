@@ -29,12 +29,9 @@ class DistanceParam(ParamInterface):
         return self.data.add_geometry_column(self.data.GENERAL_DF)
 
     def validate_input(self, input_):
-        for arg in ['position', 'weight']:
-            if arg not in input_.keys():
-                raise ValueError(f"input must contain ['position', 'weight'], did contain:  {input_.keys()}")
-        weight = input_['weight']
-        if weight < 1 or weight > 5:
-            raise ValueError(f"'weight' needs to be between 1 and 5, was {weight}")
+        self.validate_args(input_, ['position', 'weight'])
+        self.validate_weight(input_)
+        # TODO: validate 'position'
 
     def calculate_score(self, input_: dict) -> float:
         """
@@ -52,13 +49,3 @@ class DistanceParam(ParamInterface):
         weight = input_['weight']
         result['Score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
         return result.filter(items=['Levekårsnavn', 'geometry', 'Score'])
-
-'''
-distance_input = {
-    "position": Point (10.39628304564158, 63.433247153410214),
-    "weight": 4
-}
-data = Data();
-ages_param = DistanceParam(data)
-print(ages_param.calculate_score(distance_input).head())
-'''

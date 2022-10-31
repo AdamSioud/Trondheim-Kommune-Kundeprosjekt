@@ -1,9 +1,5 @@
 # folder that contains all the data base model classes with constraints
-
-from shapely.speedups._speedups import Point
 import geopandas as gpd
-import pandas as pd
-from pathlib import Path
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.parameters.culture_param import CultureParam
 from server.model.src.parameters.distance_param import DistanceParam
@@ -36,8 +32,14 @@ class Model:
             NoiseParam(self.data)
         ]
 
+    def make_df_copy(self):
+        res = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
+        with open("general_df.json", "w") as outfile:
+            outfile.write(res.head().to_json())
+        return self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
+
     def calculate_scores(self, param_input: dict):
-        result = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
+        result = self.make_df_copy()
         result['Score'] = 0
         for param in self.parameters:
             if param.INPUT_NAME in param_input.keys():
@@ -51,7 +53,6 @@ class Model:
                     result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
         # result['Score'] = pd.qcut(result['Score'], 5, labels=False, duplicates='drop')
         result['Score'] = result['Score'].astype(float)
-        print(type(result))
         return result
 
     def generate_map(self, param_input: dict):
@@ -60,60 +61,3 @@ class Model:
 
     def get_zone_by_id(self, i: int):
         return self.data.get_zone_by_id(i)
-
-
-# Testing ...
-par_input = {
-    "age_input": {
-        "selected": ['underage (0-17)', 'young adult (18-34)'],
-        "percent": 10,
-        "weight": 4
-    },
-    "price_input": {
-        "selected": ['small', "medium"],
-        "budget": 2400000,
-        "weight": 4
-    },
-    "distance_input": {
-        "position": Point(10.39628304564158, 63.433247153410214),
-        "weight": 4
-    },
-    "environment": {
-        "well_being_input": {
-            "weight": 4
-        },
-        "safety_input": {
-            "weight": 1
-        },
-        "culture_input": {
-            "weight": 4
-        },
-        "outdoor_input": {
-            "weight": 4
-        },
-        "transport_input": {
-            "weight": 4
-        },
-        "walkway_input": {
-            "weight": 4
-        },
-        "grocery_input": {
-            "weight": 4
-        },
-        "noise_input": {
-            "weight": 4
-        }
-    }
-}
-
-model = Model()
-res = model.generate_map(par_input)
-
-# with open("sample.json", "w") as outfile:
-#     outfile.write(res.to_json())
-
-m = res.explore('Score')
-path_base = Path(__file__).resolve().parent
-outfp = path_base / "../generated_map.html"
-m.save(outfp)
-

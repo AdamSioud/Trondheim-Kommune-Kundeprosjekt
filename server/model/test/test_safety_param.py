@@ -1,4 +1,6 @@
 import unittest
+# import sys
+# sys.path.append("..")
 from server.model.src.parameters.safety_param import SafetyParam
 from server.model.src.data.data import Data
 from unittest.mock import MagicMock
@@ -16,16 +18,16 @@ class TestSafetyParam(unittest.TestCase):
         SafetyParam.make_df_copy.return_value = pd.read_json('mock_data/nærmiljø.json')
 
     def test_give_score(self):
-        self.assertEqual(self.sp.give_score(0.50), 5)
-        self.assertEqual(self.sp.give_score(0.749), 5)
-        self.assertEqual(self.sp.give_score(0.75), 4)
-        self.assertEqual(self.sp.give_score(0.799), 4)
+        self.assertEqual(self.sp.give_score(0.50), 1)
+        self.assertEqual(self.sp.give_score(0.749), 1)
+        self.assertEqual(self.sp.give_score(0.75), 2)
+        self.assertEqual(self.sp.give_score(0.799), 2)
         self.assertEqual(self.sp.give_score(0.80), 3)
         self.assertEqual(self.sp.give_score(0.849), 3)
-        self.assertEqual(self.sp.give_score(0.85), 2)
-        self.assertEqual(self.sp.give_score(0.899), 2)
-        self.assertEqual(self.sp.give_score(0.90), 1)
-        self.assertEqual(self.sp.give_score(1), 1)
+        self.assertEqual(self.sp.give_score(0.85), 4)
+        self.assertEqual(self.sp.give_score(0.899), 4)
+        self.assertEqual(self.sp.give_score(0.90), 5)
+        self.assertEqual(self.sp.give_score(1), 5)
 
     def test_calculate_score(self):
         inp = {
@@ -70,6 +72,12 @@ class TestSafetyParam(unittest.TestCase):
 
         inp = {
             "weight": -1
+        }
+        self.assertRaises(ValueError, self.sp.calculate_score, inp)
+
+        inp = {
+            "weight": 1,
+            "notAnInput": 2
         }
         self.assertRaises(ValueError, self.sp.calculate_score, inp)
 

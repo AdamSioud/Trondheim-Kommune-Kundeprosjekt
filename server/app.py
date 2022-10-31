@@ -40,7 +40,6 @@ class Map(Resource):
 class Score(Resource):
     def post(self):
         result = MODEL.calculate_scores(request.json)
-
         global_properties = {
             "scoreMin": result['Score'].min(),
             "scoreMax": result['Score'].max()
@@ -51,8 +50,8 @@ class Score(Resource):
             result.at[i, 'Score'] = (result['Score'][i] - global_properties.get("scoreMin")) * 100 / new_max
         return result.to_json()
 
-""" This should take in an ID which is the levekår sone """
 
+""" This should take in an ID which is the levekår sone """
 class ZoneData(Resource):
     def get(self, zone_id):
         return MODEL.get_zone_by_id(zone_id)
