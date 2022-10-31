@@ -66,6 +66,12 @@ class TestNoiseParam(unittest.TestCase):
         }
         self.assertRaises(ValueError, self.np.calculate_score, inp)
 
+        inp = {
+            "weight": 1,
+            "notAnInput": 2
+        }
+        self.assertRaises(ValueError, self.np.calculate_score, inp)
+
 
 if __name__ == '__main__':
     unittest.main()

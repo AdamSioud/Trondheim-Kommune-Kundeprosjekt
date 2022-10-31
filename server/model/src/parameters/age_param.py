@@ -1,5 +1,4 @@
 from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
 
 
 class AgeParam(ParamInterface):
@@ -25,14 +24,13 @@ class AgeParam(ParamInterface):
         return 0
 
     def validate_input(self, input_):
+        self.validate_args(input_, ['selected', 'percent', 'weight'])
+        self.validate_weight(input_)
         if len(input_['selected']) == 0:
             raise ValueError(f"'selected' can´t be empty")
-        weight = input_['weight']
-        if weight < 1 or weight > 5:
-            raise ValueError(f"'weight' needs to be between 1 and 5, was {weight}")
         percent = input_['percent']
         if percent < 0 or percent > 100:
-            raise ValueError(f"'percent' needs to be between 0 and 100, was {weight}")
+            raise ValueError(f"'percent' needs to be between 0 and 100, was {percent}")
 
     def calculate_score(self, input_: dict):
         self.validate_input(input_)
@@ -46,20 +44,3 @@ class AgeParam(ParamInterface):
         result['Score'] = result[clms].sum(axis=1).round(2)\
             .apply(lambda price: self.give_score(price, percent) * weight)
         return result.filter(items=['Levekårsnavn', 'Score'])
-
-
-'''
-age_input = {
-    "selected": ['underage (0-17)', 'young adult (18-34)'],
-    "percent": 50,
-    "weight": 1
-}
-data = Data()
-ages_param = AgeParam(data)
-print(ages_param.calculate_score(age_input))
-
-# resu = data.DFS.get('Ages').copy()
-# with open("ages.json", "w") as outfile:
-#     outfile.write(resu.head().to_json())
-'''
-

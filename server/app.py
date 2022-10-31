@@ -38,8 +38,6 @@ class Map(Resource):
         return result
 
 
-
-
 """ This should take in an ID which is the levekår sone """
 
 class ZoneData(Resource):

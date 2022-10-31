@@ -10,6 +10,8 @@ class TestPriceParam(unittest.TestCase):
     def setUp(self) -> None:
         self.data = Data()
         self.pp = PriceParam(self.data)
+        PriceParam.make_df_copy = MagicMock()
+        PriceParam.make_df_copy.return_value = pd.read_json('mock_data/price.json')
 
     def test_give_score(self):
         # TODO: add edge-cases. negative
@@ -24,54 +26,49 @@ class TestPriceParam(unittest.TestCase):
         self.assertEqual(self.pp.give_score(110, 100), 1)
         self.assertEqual(self.pp.give_score(111, 100), 0)
 
+    def test_calculate_score(self):
+        inp = {
+            "budget": 3600000,
+            'weight': 1
+        }
+        res = self.pp.calculate_score(inp)
+        self.assertEqual(res['Score'][0], 5)
+        self.assertEqual(res['Score'][1], 0)
+        self.assertEqual(res['Score'][2], 5)
+        self.assertEqual(res['Score'][3], 3)
+        self.assertEqual(res['Score'][4], 0)
 
-    # def test_test(self):
-    #     PriceParam.make_df_copy = MagicMock()
-    #     PriceParam.make_df_copy.return_value = pd.read_json('mock_data/ages.json')
-    #     inp = {}
-    #
-    #     res = self.pp.calculate_score(inp)
-    #     self.assertEqual(res['Score'][0], 5)
-    #     self.assertEqual(res['Score'][1], 1)
-    #     self.assertEqual(res['Score'][2], 5)
-    #     self.assertEqual(res['Score'][3], 5)
-    #     self.assertEqual(res['Score'][4], 5)
-    #
-    #     inp = {
-    #         "selected": ['underage (0-17)', 'young adult (18-34)'],
-    #         "percent": 50,
-    #         "weight": 2
-    #     }
-    #     res = self.pp.calculate_score(inp)
-    #     self.assertEqual(res['Score'][0], 10)
-    #     self.assertEqual(res['Score'][1], 2)
-    #     self.assertEqual(res['Score'][2], 10)
-    #     self.assertEqual(res['Score'][3], 10)
-    #     self.assertEqual(res['Score'][4], 10)
-    #
-    #     inp = {
-    #         "selected": ['underage (0-17)', 'young adult (18-34)'],
-    #         "percent": 0,
-    #         "weight": 2
-    #     }
-    #     res = self.pp.calculate_score(inp)
-    #     self.assertEqual(res['Score'][0], 10)
-    #     self.assertEqual(res['Score'][1], 10)
-    #     self.assertEqual(res['Score'][2], 10)
-    #     self.assertEqual(res['Score'][3], 10)
-    #     self.assertEqual(res['Score'][4], 10)
-    #
-    #     inp = {
-    #         "selected": ['underage (0-17)'],
-    #         "percent": 12,
-    #         "weight": 1
-    #     }
-    #     res = self.pp.calculate_score(inp)
-    #     self.assertEqual(res['Score'][0], 1)
-    #     self.assertEqual(res['Score'][1], 5)
-    #     self.assertEqual(res['Score'][2], 0)
-    #     self.assertEqual(res['Score'][3], 5)
-    #     self.assertEqual(res['Score'][4], 5)
+        inp = {
+            "budget": 7000000,
+            'weight': 2
+        }
+        res = self.pp.calculate_score(inp)
+        self.assertEqual(res['Score'][0], 10)
+        self.assertEqual(res['Score'][1], 10)
+        self.assertEqual(res['Score'][2], 10)
+        self.assertEqual(res['Score'][3], 10)
+        self.assertEqual(res['Score'][4], 2)
+
+        inp = {
+            "budget": 3600000,
+            'weight': 0
+        }
+        self.assertRaises(ValueError, self.pp.calculate_score, inp)
+
+        inp = {
+            "budget": 3600000,
+            'weight': 6
+        }
+        self.assertRaises(ValueError, self.pp.calculate_score, inp)
+
+        inp = {
+            "budget": 3600000,
+            'weight': 6,
+            "notAnInput": 2
+        }
+        self.assertRaises(ValueError, self.pp.calculate_score, inp)
+
+
 
 
 if __name__ == '__main__':
