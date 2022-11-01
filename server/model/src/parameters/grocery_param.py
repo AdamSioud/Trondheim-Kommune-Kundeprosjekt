@@ -4,5 +4,5 @@ from server.model.src.parameters.environment_param_interface import EnvironmentP
 class GroceryParam(EnvironmentParam):
 
     def __init__(self, data):
-        super().__init__(data, 'tilgjengelighet butikker')
+        super().__init__(data, 'groceryStores')
         self.INPUT_NAME = 'grocery_input'

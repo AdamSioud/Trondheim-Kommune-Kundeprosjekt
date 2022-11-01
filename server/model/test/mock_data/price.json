@@ -1,12 +1,12 @@
 {
-  "average.Gjennomsnittspris": {
+  "average.averagePrice": {
     "0": 3326793,
     "1": 4942996,
     "2": 3322394,
     "3": 3697621,
     "4": 7674108
   },
-  "average.Antall": {
+  "average.quantity": {
     "0": 430,
     "1": 88,
     "2": 392,

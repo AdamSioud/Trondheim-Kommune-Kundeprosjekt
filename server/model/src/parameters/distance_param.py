@@ -1,6 +1,9 @@
 import shapely
 from shapely.geometry import Point
 from server.model.src.parameters.param_interface import ParamInterface
+import json
+from server.model.src.data.data import Data
+import geopandas as gpd
 
 
 class DistanceParam(ParamInterface):
@@ -47,5 +50,8 @@ class DistanceParam(ParamInterface):
         result = self.make_df_copy()
         pos = input_.get('position')
         weight = input_['weight']
-        result['Score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
-        return result.filter(items=['Levekårsnavn', 'geometry', 'Score'])
+        result['score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
+        return result.filter(items=['score'])
+d = Data()
+a = DistanceParam(d)
+a.make_df_copy()

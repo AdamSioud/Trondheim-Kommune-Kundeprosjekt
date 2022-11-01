@@ -34,13 +34,13 @@ class AgeParam(ParamInterface):
 
     def calculate_score(self, input_: dict):
         self.validate_input(input_)
-        result = self.make_df_copy('Ages')
+        result = self.make_df_copy('age')
         percent = input_['percent'] / 100
         clms = []
         for sel in input_['selected']:
-            clms.append(sel + ".Andel")
+            clms.append(sel + ".portion")
         weight = input_['weight']
         # should .round(2) be here. result becomes different ... ??
-        result['Score'] = result[clms].sum(axis=1).round(2)\
+        result['score'] = result[clms].sum(axis=1).round(2)\
             .apply(lambda price: self.give_score(price, percent) * weight)
-        return result.filter(items=['Levekårsnavn', 'Score'])
+        return result.filter(items=['score'])

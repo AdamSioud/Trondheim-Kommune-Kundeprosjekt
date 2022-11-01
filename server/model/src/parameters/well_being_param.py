@@ -4,5 +4,5 @@ from server.model.src.parameters.environment_param_interface import EnvironmentP
 class WellBeingParam(EnvironmentParam):
 
     def __init__(self, data):
-        super().__init__(data, 'trivsel')
+        super().__init__(data, 'wellBeing')
         self.INPUT_NAME = 'well_being_input'

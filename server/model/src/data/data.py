@@ -4,8 +4,8 @@ from pathlib import Path
 import json
 
 
-DATASETS = ('Ages', 'Price', 'Nærmiljø')
-GENERAL_PROPERTIES = ('Levekårsone-nummer', 'Levekårsnavn')
+DATASETS = ('age', 'price', 'neighborhood')
+GENERAL_PROPERTIE = 'zoneName'
 GEOMETRY_COULUMN = 'geometry'
 
 
@@ -20,10 +20,7 @@ def get_datasets(gdf):
 
 def get_general_df(gdf):
     # General df containing GENERAL_PROPERTIES
-    result = {}
-    for key in GENERAL_PROPERTIES:
-        result[key] = gdf[key]
-    return pd.DataFrame(result)
+    return pd.DataFrame(gdf[GENERAL_PROPERTIE])
 
 
 def get_geometry_df(gdf):
@@ -48,7 +45,7 @@ def read_json(file_name: str):
 
 class Data:
     path_base = Path(__file__).resolve().parent
-    DFS, GENERAL_DF, GEOMETRY = read_geojson(path_base / 'data2.geojson')
+    DFS, GENERAL_DF, GEOMETRY = read_geojson(path_base / 'data.geojson')
     INTERVAL_DFS = read_json(path_base / 'data_interval.json')
 
     def add_geometry_column(self, df):
@@ -59,7 +56,7 @@ class Data:
         return df
 
     def get_zone_by_id(self, i: int) -> str:
-        with open(self.path_base / 'data2.geojson', "r") as fp:
+        with open(self.path_base / 'data.geojson', "r") as fp:
             data = json.loads(fp.read())
         try:
             data = data['features'][i]['properties']

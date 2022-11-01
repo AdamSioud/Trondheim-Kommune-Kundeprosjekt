@@ -4,5 +4,5 @@ from server.model.src.parameters.environment_param_interface import EnvironmentP
 class OutdoorParam(EnvironmentParam):
 
     def __init__(self, data):
-        super().__init__(data, 'tilgjengelighet friluftsområder')
+        super().__init__(data, 'outdoorLife')
         self.INPUT_NAME = 'outdoor_input'

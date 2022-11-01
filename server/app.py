@@ -41,13 +41,13 @@ class Score(Resource):
     def post(self):
         result = MODEL.calculate_scores(request.json)
         global_properties = {
-            "scoreMin": result['Score'].min(),
-            "scoreMax": result['Score'].max()
+            "scoreMin": result['score'].min(),
+            "scoreMax": result['score'].max()
         }
         new_max = global_properties.get("scoreMax") - global_properties.get("scoreMin")
         for i, row in result.iterrows():
-            print(i, result['Score'][i], (result['Score'][i] - global_properties.get("scoreMin")) * 100 / new_max)
-            result.at[i, 'Score'] = (result['Score'][i] - global_properties.get("scoreMin")) * 100 / new_max
+            print(i, result['score'][i], (result['score'][i] - global_properties.get("scoreMin")) * 100 / new_max)
+            result.at[i, 'score'] = (result['score'][i] - global_properties.get("scoreMin")) * 100 / new_max
         return result.to_json()
 
 

@@ -32,22 +32,22 @@ class TestPriceParam(unittest.TestCase):
             'weight': 1
         }
         res = self.pp.calculate_score(inp)
-        self.assertEqual(res['Score'][0], 5)
-        self.assertEqual(res['Score'][1], 0)
-        self.assertEqual(res['Score'][2], 5)
-        self.assertEqual(res['Score'][3], 3)
-        self.assertEqual(res['Score'][4], 0)
+        self.assertEqual(res['score'][0], 5)
+        self.assertEqual(res['score'][1], 0)
+        self.assertEqual(res['score'][2], 5)
+        self.assertEqual(res['score'][3], 3)
+        self.assertEqual(res['score'][4], 0)
 
         inp = {
             "budget": 7000000,
             'weight': 2
         }
         res = self.pp.calculate_score(inp)
-        self.assertEqual(res['Score'][0], 10)
-        self.assertEqual(res['Score'][1], 10)
-        self.assertEqual(res['Score'][2], 10)
-        self.assertEqual(res['Score'][3], 10)
-        self.assertEqual(res['Score'][4], 2)
+        self.assertEqual(res['score'][0], 10)
+        self.assertEqual(res['score'][1], 10)
+        self.assertEqual(res['score'][2], 10)
+        self.assertEqual(res['score'][3], 10)
+        self.assertEqual(res['score'][4], 2)
 
         inp = {
             "budget": 3600000,

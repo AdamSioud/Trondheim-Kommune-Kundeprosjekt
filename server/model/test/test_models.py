@@ -17,7 +17,7 @@ class TestModel(unittest.TestCase):
         Model.make_df_copy.return_value = pd.read_json('mock_data/general_df.json')
 
         AgeParam.make_df_copy = MagicMock()
-        AgeParam.make_df_copy.return_value = pd.read_json('mock_data/ages.json')
+        AgeParam.make_df_copy.return_value = pd.read_json('mock_data/age.json')
 
         DistanceParam.make_df_copy = MagicMock()
         DistanceParam.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
@@ -25,7 +25,7 @@ class TestModel(unittest.TestCase):
         EnvironmentParam.get_interval = MagicMock()
         EnvironmentParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
         EnvironmentParam.make_df_copy = MagicMock()
-        EnvironmentParam.make_df_copy.return_value = pd.read_json('mock_data/nærmiljø.json')
+        EnvironmentParam.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
 
         PriceParam.make_df_copy = MagicMock()
         PriceParam.make_df_copy.return_value = pd.read_json('mock_data/price.json')
@@ -33,7 +33,7 @@ class TestModel(unittest.TestCase):
     def test_calculate_score(self):
         par_input = {
             "age_input": {
-                "selected": ['underage (0-17)', 'young adult (18-34)'],
+                "selected": ['0-17', '18-34'],
                 "percent": 10,
                 "weight": 4
             },
@@ -73,15 +73,15 @@ class TestModel(unittest.TestCase):
             }
         }
         res = self.m.calculate_scores(par_input)
-        self.assertEqual(res['Score'][0], 162)
-        self.assertEqual(res['Score'][1], 146)
-        self.assertEqual(res['Score'][2], 162)
-        self.assertEqual(res['Score'][3], 161)
-        self.assertEqual(res['Score'][4], 162)
+        self.assertEqual(res['score'][0], 162)
+        self.assertEqual(res['score'][1], 146)
+        self.assertEqual(res['score'][2], 162)
+        self.assertEqual(res['score'][3], 161)
+        self.assertEqual(res['score'][4], 162)
 
         par_input = {
             "age_input": {
-                "selected": ['underage (0-17)', 'young adult (18-34)'],
+                "selected": ['0-17', '18-34'],
                 "percent": 10,
                 "weight": 4
             },
@@ -95,19 +95,19 @@ class TestModel(unittest.TestCase):
             }
         }
         res = self.m.calculate_scores(par_input)
-        self.assertEqual(res['Score'][0], 36)
-        self.assertEqual(res['Score'][1], 24)
-        self.assertEqual(res['Score'][2], 40)
-        self.assertEqual(res['Score'][3], 40)
-        self.assertEqual(res['Score'][4], 40)
+        self.assertEqual(res['score'][0], 36)
+        self.assertEqual(res['score'][1], 24)
+        self.assertEqual(res['score'][2], 40)
+        self.assertEqual(res['score'][3], 40)
+        self.assertEqual(res['score'][4], 40)
 
         par_input = {}
         res = self.m.calculate_scores(par_input)
-        self.assertEqual(res['Score'][0], 0)
-        self.assertEqual(res['Score'][1], 0)
-        self.assertEqual(res['Score'][2], 0)
-        self.assertEqual(res['Score'][3], 0)
-        self.assertEqual(res['Score'][4], 0)
+        self.assertEqual(res['score'][0], 0)
+        self.assertEqual(res['score'][1], 0)
+        self.assertEqual(res['score'][2], 0)
+        self.assertEqual(res['score'][3], 0)
+        self.assertEqual(res['score'][4], 0)
 
     def test_get_zone_by_id(self):
         pass

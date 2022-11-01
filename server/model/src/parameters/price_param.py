@@ -41,9 +41,9 @@ class PriceParam(ParamInterface):
         }
         """
         self.validate_input(input_)
-        result = self.make_df_copy('Price')
+        result = self.make_df_copy('price')
         budget = input_['budget']
         weight = input_['weight']
-        clm = 'average.Gjennomsnittspris'
-        result['Score'] = result[clm].apply(lambda price: self.give_score(price, budget) * weight)
-        return result.filter(items=['Levekårsnavn', 'Score'])
+        clm = 'average.averagePrice'
+        result['score'] = result[clm].apply(lambda price: self.give_score(price, budget) * weight)
+        return result.filter(items=['score'])

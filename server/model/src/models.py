@@ -33,26 +33,26 @@ class Model:
         ]
 
     def make_df_copy(self):
-        res = self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
+        res = self.data.GENERAL_DF.copy().filter(items=['zoneName', 'score'])
         with open("general_df.json", "w") as outfile:
             outfile.write(res.head().to_json())
-        return self.data.GENERAL_DF.copy().filter(items=['Levekårsnavn', 'Score'])
+        return self.data.GENERAL_DF.copy().filter(items=['zoneName', 'score'])
 
     def calculate_scores(self, param_input: dict):
         result = self.make_df_copy()
-        result['Score'] = 0
+        result['score'] = 0
         for param in self.parameters:
             if param.INPUT_NAME in param_input.keys():
                 inp = param_input[param.INPUT_NAME]
                 tmp = param.calculate_score(inp)
-                result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
+                result['score'] = result['score'].add(tmp['score'], fill_value=0)
             elif 'environment' in param_input.keys():
                 if param.INPUT_NAME in param_input['environment'].keys():
                     inp = param_input['environment'][param.INPUT_NAME]
                     tmp = param.calculate_score(inp)
-                    result['Score'] = result['Score'].add(tmp['Score'], fill_value=0)
-        # result['Score'] = pd.qcut(result['Score'], 5, labels=False, duplicates='drop')
-        result['Score'] = result['Score'].astype(float)
+                    result['score'] = result['score'].add(tmp['score'], fill_value=0)
+        # result['score'] = pd.qcut(result['score'], 5, labels=False, duplicates='drop')
+        result['score'] = result['score'].astype(float)
         return result
 
     def generate_map(self, param_input: dict):

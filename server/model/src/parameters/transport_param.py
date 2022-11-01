@@ -4,5 +4,5 @@ from server.model.src.parameters.environment_param_interface import EnvironmentP
 class TransportParam(EnvironmentParam):
 
     def __init__(self, data):
-        super().__init__(data, 'tilgjengelighet offentlig transport')
+        super().__init__(data, 'publicTransport')
         self.INPUT_NAME = 'transport_input'

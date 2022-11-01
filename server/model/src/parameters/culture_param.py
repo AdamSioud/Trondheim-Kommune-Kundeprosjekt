@@ -4,5 +4,5 @@ from server.model.src.parameters.environment_param_interface import EnvironmentP
 class CultureParam(EnvironmentParam):
 
     def __init__(self, data):
-        super().__init__(data, 'tilgjengelighet kultur')
+        super().__init__(data, 'culture')
         self.INPUT_NAME = 'culture_input'
