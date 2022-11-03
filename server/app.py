@@ -32,9 +32,9 @@ class Score(Resource):
             "scoreMin": result['score'].min(),
             "scoreMax": result['score'].max()
         }
-        new_max = global_properties.get("scoreMax") - global_properties.get("scoreMin")
-        for i, row in result.iterrows():
-            result.at[i, 'score'] = (result['score'][i] - global_properties.get("scoreMin")) * 100 / new_max
+        # new_max = global_properties.get("scoreMax") - global_properties.get("scoreMin")
+        # for i, row in result.iterrows():
+        #     result.at[i, 'score'] = (result['score'][i] - global_properties.get("scoreMin")) * 100 / new_max
         return result.to_json()
 
 
