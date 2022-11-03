@@ -3,11 +3,6 @@ from unittest.mock import MagicMock
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.data.data import Data
 import pandas as pd
-import unittest
-from unittest.mock import MagicMock
-from server.model.src.parameters.age_param import AgeParam
-from server.model.src.data.data import Data
-import pandas as pd
 
 
 class TestAgeParam(unittest.TestCase):
@@ -124,3 +119,4 @@ class TestAgeParam(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

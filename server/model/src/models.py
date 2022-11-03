@@ -1,5 +1,5 @@
-# folder that contains all the data base model classes with constraints
 import geopandas as gpd
+import pandas as pd
 from server.model.src.parameters.age_param import AgeParam
 from server.model.src.parameters.culture_param import CultureParam
 from server.model.src.parameters.distance_param import DistanceParam
@@ -15,6 +15,7 @@ from server.model.src.data.data import Data
 
 
 class Model:
+    """The model doing calculation for all the parameters"""
     def __init__(self):
         self.data = Data()
         self.parameters = [
@@ -33,12 +34,15 @@ class Model:
         ]
 
     def make_df_copy(self):
-        res = self.data.GENERAL_DF.copy().filter(items=['zoneName', 'score'])
-        with open("general_df.json", "w") as outfile:
-            outfile.write(res.head().to_json())
-        return self.data.GENERAL_DF.copy().filter(items=['zoneName', 'score'])
+        """Makes a copy of the general DataFrame."""
+        return self.data.GENERAL_DF.copy()
 
-    def calculate_scores(self, param_input: dict):
+    def calculate_scores(self, param_input: dict) -> pd.DataFrame:
+        """
+        Calculates the score for each zone by adding the score for each parameter. Then Normalizes the score from 0-100.
+        :param param_input: The input on format: { inp1: {...}, inp2: {...}, ... }
+        :return: DataFrame with the scores.
+        """
         result = self.make_df_copy()
         result['score'] = 0
         for param in self.parameters:
@@ -55,9 +59,11 @@ class Model:
         result['score'] = result['score'].astype(float)
         return result
 
-    def generate_map(self, param_input: dict):
+    def generate_map(self, param_input: dict) -> gpd.GeoDataFrame:
+        """Generates a GeoDataFrame from the result from calculate_scores"""
         result = self.calculate_scores(param_input)
         return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
+        """Gets the data of a single zone by its id."""
         return self.data.get_zone_by_id(i)

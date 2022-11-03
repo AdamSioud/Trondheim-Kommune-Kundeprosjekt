@@ -1,8 +1,11 @@
 from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from server.model.src.data.data import Data
 
 
 class CultureParam(EnvironmentParam):
-
-    def __init__(self, data):
+    """Class for calculating score for culture param. The data tells portion of the inhabitants that are satisfied with
+    the culture and sport facilities in the area.
+    """
+    def __init__(self, data: Data):
         super().__init__(data, 'culture')
         self.INPUT_NAME = 'culture_input'

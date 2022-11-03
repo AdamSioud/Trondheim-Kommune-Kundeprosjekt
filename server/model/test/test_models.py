@@ -110,4 +110,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res['score'][4], 0)
 
     def test_get_zone_by_id(self):
+        # TODO: make tests
         pass
+
+
+if __name__ == '__main__':
+    unittest.main()

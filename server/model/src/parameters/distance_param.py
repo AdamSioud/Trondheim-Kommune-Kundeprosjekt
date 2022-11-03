@@ -1,14 +1,14 @@
+import pandas as pd
+import geopandas as gpd
 import shapely
 from shapely.geometry import Point
 from server.model.src.parameters.param_interface import ParamInterface
-import json
 from server.model.src.data.data import Data
-import geopandas as gpd
 
 
 class DistanceParam(ParamInterface):
-
-    def __init__(self, data):
+    """Class for calculating score for age-parameter"""
+    def __init__(self, data: Data):
         super().__init__(data)
         self.INPUT_NAME = "distance_input"
 
@@ -21,37 +21,33 @@ class DistanceParam(ParamInterface):
         center = bydel.centroid
         distance = pos.distance(center)
         limit = min_distance
-
         for p in range(5, 0, -1):
             if distance <= limit:
                 return p
             limit += increment
         return 0
 
-    def make_df_copy(self):
-        return self.data.add_geometry_column(self.data.GENERAL_DF)
+    def make_df_copy(self) -> gpd.GeoDataFrame:
+        """Makes a copy of the general-dataframe and adds the geometry-column."""
+        print(type(self.data.add_geometry_column(self.data.GENERAL_DF).copy()))
+        return self.data.add_geometry_column(self.data.GENERAL_DF).copy()
 
-    def validate_input(self, input_):
-        self.validate_args(input_, ['position', 'weight'])
-        self.validate_weight(input_)
+    def validate_input(self, inp: dict) -> None:
+        self.validate_args(inp, ['position', 'weight'])
+        self.validate_weight(inp)
         # TODO: validate 'position'
 
-    def calculate_score(self, input_: dict) -> float:
+    def calculate_score(self, inp: dict) -> pd.DataFrame:
         """
-        Calculates the distance from centroid of an area to the coordinates of the point
-
-        input-format:
-        input_ = {
-            position: POINT (10.39628304564158 63.433247153410214),
-            weight: 4
-        }
+        Calculates the score for all the zones, using give_score on each zone. Then multiplies it with the
+        'weight'-input.
+        :param inp: The input on format: 'age_input' = { 'selected': [], 'percent': int, 'weight': int }
+        :return: DataFrame with the score.
         """
-        self.validate_input(input_)
+        self.validate_input(inp)
         result = self.make_df_copy()
-        pos = input_.get('position')
-        weight = input_['weight']
+        pos = inp.get('position')
+        weight = inp['weight']
         result['score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
+        print(type(result.filter(items=['score'])))
         return result.filter(items=['score'])
-d = Data()
-a = DistanceParam(d)
-a.make_df_copy()

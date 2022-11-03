@@ -1,8 +1,11 @@
 from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from server.model.src.data.data import Data
 
 
 class GroceryParam(EnvironmentParam):
-
-    def __init__(self, data):
+    """Class for calculating score for grocery param. The data tells portion of the inhabitants that are satisfied with
+    the grocery stores, restaurants and other service offers in the area.
+    """
+    def __init__(self, data: Data):
         super().__init__(data, 'groceryStores')
         self.INPUT_NAME = 'grocery_input'

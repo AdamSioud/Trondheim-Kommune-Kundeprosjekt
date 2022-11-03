@@ -1,8 +1,11 @@
 from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from server.model.src.data.data import Data
 
 
 class TransportParam(EnvironmentParam):
-
-    def __init__(self, data):
+    """Class for calculating score for transport param. The data tells the portion of the inhabitants that are satisfied
+    with the availability of public transport in the area.
+    """
+    def __init__(self, data: Data):
         super().__init__(data, 'publicTransport')
         self.INPUT_NAME = 'transport_input'

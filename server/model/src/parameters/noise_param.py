@@ -41,17 +41,12 @@ class NoiseParam(ParamInterface):
         super().__init__(data)
         self.INPUT_NAME = 'noise_input'
 
+    def validate_input(self, inp: dict) -> None:
+        pass
+
     def give_score(self, *args):
         pass
 
     def calculate_score(self, input_):
         result = (NoiseTrafficParam(self.data).calculate_score(input_) + NoiseOtherParam(self.data).calculate_score(input_)) / 2
         return result.filter(items=['score'])
-
-
-inp = {
-        "weight": 1
-        }
-d = Data()
-p = NoiseParam(d)
-
