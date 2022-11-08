@@ -12,30 +12,13 @@ MODEL = Model()
 class Map(Resource):
     """API call for getting the map with the scores for each zone"""
     def post(self):
-        result = MODEL.generate_map(request.json)
-        global_properties = {
-            "scoreMin": result['score'].min(),
-            "scoreMax": result['score'].max()
-        }
-        result = {
-            "geoJSONGlobalProperties": global_properties,
-            "geoJSON": result.to_json()
-        }
-        return result
+        return MODEL.generate_map(request.json).to_json()
 
 
 class Score(Resource):
     """API call for getting the scores without the geometry column"""
     def post(self):
-        result = MODEL.calculate_scores(request.json)
-        global_properties = {
-            "scoreMin": result['score'].min(),
-            "scoreMax": result['score'].max()
-        }
-        # new_max = global_properties.get("scoreMax") - global_properties.get("scoreMin")
-        # for i, row in result.iterrows():
-        #     result.at[i, 'score'] = (result['score'][i] - global_properties.get("scoreMin")) * 100 / new_max
-        return result.to_json()
+        return MODEL.calculate_scores(request.json).to_json()
 
 
 class ZoneData(Resource):
