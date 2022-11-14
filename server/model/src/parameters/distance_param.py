@@ -29,7 +29,6 @@ class DistanceParam(ParamInterface):
 
     def make_df_copy(self) -> gpd.GeoDataFrame:
         """Makes a copy of the general-dataframe and adds the geometry-column."""
-        print(type(self.data.add_geometry_column(self.data.GENERAL_DF).copy()))
         return self.data.add_geometry_column(self.data.GENERAL_DF).copy()
 
     def validate_input(self, inp: dict) -> None:
@@ -49,5 +48,4 @@ class DistanceParam(ParamInterface):
         pos = inp.get('position')
         weight = inp['weight']
         result['score'] = result['geometry'].apply(lambda x: self.give_score(x, pos) * weight)
-        print(type(result.filter(items=['score'])))
         return result.filter(items=['score'])

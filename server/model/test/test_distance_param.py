@@ -2,7 +2,6 @@ import unittest
 from shapely.speedups._speedups import Point
 from unittest.mock import MagicMock
 from server.model.src.parameters.distance_param import DistanceParam
-from server.model.src.data.data import Data
 import geopandas as gpd
 
 
@@ -17,7 +16,6 @@ class TestDistanceParam(unittest.TestCase):
         pass
 
     def test_calculate_score(self):
-        print(self.dp.make_df_copy().keys())
         inp = {
             "position": Point(10.39628304564158, 63.433247153410214),
             "weight": 1
