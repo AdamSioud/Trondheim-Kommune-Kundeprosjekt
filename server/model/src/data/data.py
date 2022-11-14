@@ -57,9 +57,15 @@ def read_json(file_path: str) -> dict:
 
 class Data:
     """Class for accessing the data used in the backend."""
+    instance = None
     path_base = Path(__file__).resolve().parent
     DFS, GENERAL_DF, GEOMETRY = read_geojson(str(path_base / 'data.geojson'))
     INTERVAL_DFS = read_json(str(path_base / 'data_interval.json'))
+
+    def __new__(cls, *args, **kwargs):
+        if cls.instance is None:
+            cls.instance = super(Data, cls).__new__(cls)
+        return cls.instance
 
     def add_geometry_column(self, df: pd.DataFrame) -> gpd.GeoDataFrame:
         """Adds the geometry column to the DataFrame"""
