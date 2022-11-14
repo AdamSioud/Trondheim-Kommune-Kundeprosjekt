@@ -9,8 +9,7 @@ import pandas as pd
 class TestSafetyParam(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.data = Data()
-        self.sp = SafetyParam(self.data)
+        self.sp = SafetyParam()
         # EnvironmentParam.get_interval = MagicMock()
         # EnvironmentParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
         SafetyParam.get_interval = MagicMock()

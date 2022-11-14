@@ -6,6 +6,6 @@ class WellBeingParam(EnvironmentParam):
     """Class for calculating score for well-being param. The data tells the portion of the inhabitants that enjoy living
     in the area.
     """
-    def __init__(self, data: Data):
-        super().__init__(data, 'wellBeing')
+    def __init__(self):
+        super().__init__('wellBeing')
         self.INPUT_NAME = 'well_being_input'

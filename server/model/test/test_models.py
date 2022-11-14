@@ -73,11 +73,11 @@ class TestModel(unittest.TestCase):
             }
         }
         res = self.m.calculate_scores(par_input)
-        self.assertEqual(res['score'][0], 162)
-        self.assertEqual(res['score'][1], 146)
-        self.assertEqual(res['score'][2], 162)
-        self.assertEqual(res['score'][3], 161)
-        self.assertEqual(res['score'][4], 162)
+        self.assertEqual(res['score'][0], 100)
+        self.assertEqual(res['score'][1], 0)
+        self.assertEqual(res['score'][2], 100)
+        self.assertEqual(res['score'][3], 93.8)
+        self.assertEqual(res['score'][4], 100)
 
         par_input = {
             "age_input": {
@@ -95,11 +95,11 @@ class TestModel(unittest.TestCase):
             }
         }
         res = self.m.calculate_scores(par_input)
-        self.assertEqual(res['score'][0], 36)
-        self.assertEqual(res['score'][1], 24)
-        self.assertEqual(res['score'][2], 40)
-        self.assertEqual(res['score'][3], 40)
-        self.assertEqual(res['score'][4], 40)
+        self.assertEqual(res['score'][0], 75)
+        self.assertEqual(res['score'][1], 0)
+        self.assertEqual(res['score'][2], 100)
+        self.assertEqual(res['score'][3], 100)
+        self.assertEqual(res['score'][4], 100)
 
         par_input = {}
         res = self.m.calculate_scores(par_input)
@@ -108,6 +108,21 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res['score'][2], 0)
         self.assertEqual(res['score'][3], 0)
         self.assertEqual(res['score'][4], 0)
+
+        par_input = {
+            "age_input": {
+                "selected": ['0-17', '18-34'],
+                "percent": 1,
+                "weight": 4
+            }
+        }
+        res = self.m.calculate_scores(par_input)
+        self.assertEqual(res['score'][0], 100)
+        self.assertEqual(res['score'][1], 100)
+        self.assertEqual(res['score'][2], 100)
+        self.assertEqual(res['score'][3], 100)
+        self.assertEqual(res['score'][4], 100)
+
 
     def test_get_zone_by_id(self):
         # TODO: make tests

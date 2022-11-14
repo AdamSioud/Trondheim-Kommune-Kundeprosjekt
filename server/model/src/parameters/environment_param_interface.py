@@ -5,8 +5,8 @@ from server.model.src.data.data import Data
 
 class EnvironmentParam(ParamInterface):
     """Abstract class for calculating score for an environment-parameter"""
-    def __init__(self, data: Data, category: str):
-        super().__init__(data)
+    def __init__(self, category: str):
+        super().__init__()
         self.category = category
         self.dataColumn = 'portion'
         self.interval = self.get_interval()

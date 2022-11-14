@@ -6,6 +6,6 @@ class SafetyParam(EnvironmentParam):
     """Class for calculating score for safety param. The data tells portion of the inhabitants that feels safe in the
     area.
     """
-    def __init__(self, data: Data):
-        super().__init__(data, 'safety')
+    def __init__(self):
+        super().__init__('safety')
         self.INPUT_NAME = 'safety_input'

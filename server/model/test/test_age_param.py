@@ -8,8 +8,7 @@ import pandas as pd
 class TestAgeParam(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.data = Data()
-        self.ap = AgeParam(self.data)
+        self.ap = AgeParam()
         AgeParam.make_df_copy = MagicMock()
         AgeParam.make_df_copy.return_value = pd.read_json('mock_data/age.json')
 
@@ -72,13 +71,6 @@ class TestAgeParam(unittest.TestCase):
         self.assertEqual(res['score'][2], 0)
         self.assertEqual(res['score'][3], 5)
         self.assertEqual(res['score'][4], 5)
-
-        inp = {
-            "selected": [],
-            "percent": 12,
-            "weight": 1
-        }
-        self.assertRaises(ValueError, self.ap.calculate_score, inp)
 
         inp = {
             "selected": ['0-17'],

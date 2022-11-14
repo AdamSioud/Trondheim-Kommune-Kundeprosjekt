@@ -5,8 +5,8 @@ from server.model.src.parameters.param_interface import ParamInterface
 
 class PriceParam(ParamInterface):
     """Class for calculating score for price-parameter"""
-    def __init__(self, data):
-        super().__init__(data)
+    def __init__(self):
+        super().__init__()
         self.INPUT_NAME = "price_input"
 
     def give_score(self, price: float, budget: float, deviation=0.10) -> int:

@@ -5,8 +5,8 @@ import pandas as pd
 
 class ParamInterface(ABC):
     """Abstract class for parameters"""
-    def __init__(self, data: Data):
-        self.data = data
+    def __init__(self):
+        self.data = Data()
 
     @abstractmethod
     def give_score(self, *args) -> int:

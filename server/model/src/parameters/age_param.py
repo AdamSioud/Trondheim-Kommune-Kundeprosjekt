@@ -5,8 +5,8 @@ from server.model.src.data.data import Data
 
 class AgeParam(ParamInterface):
     """Class for calculating score for age-parameter"""
-    def __init__(self, data: Data):
-        super().__init__(data)
+    def __init__(self):
+        super().__init__()
         self.INPUT_NAME = "age_input"
 
     def give_score(self, price: float, budget: float, deviation=0.10) -> int:

@@ -5,8 +5,8 @@ from server.model.src.data.data import Data
 
 class NoiseTrafficParam(EnvironmentParam):
 
-    def __init__(self, data):
-        super().__init__(data, 'noiseTraffic')
+    def __init__(self):
+        super().__init__('noiseTraffic')
         self.INPUT_NAME = 'noise_traffic_input'
 
     def give_score(self, x):
@@ -21,8 +21,8 @@ class NoiseTrafficParam(EnvironmentParam):
 
 class NoiseOtherParam(EnvironmentParam):
 
-    def __init__(self, data):
-        super().__init__(data, 'noiseOther')
+    def __init__(self):
+        super().__init__('noiseOther')
         self.INPUT_NAME = 'noise_other_input'
 
     def give_score(self, x):
@@ -37,8 +37,8 @@ class NoiseOtherParam(EnvironmentParam):
 
 class NoiseParam(ParamInterface):
 
-    def __init__(self, data):
-        super().__init__(data)
+    def __init__(self):
+        super().__init__()
         self.INPUT_NAME = 'noise_input'
 
     def validate_input(self, inp: dict) -> None:
@@ -48,5 +48,5 @@ class NoiseParam(ParamInterface):
         pass
 
     def calculate_score(self, input_):
-        result = (NoiseTrafficParam(self.data).calculate_score(input_) + NoiseOtherParam(self.data).calculate_score(input_)) / 2
+        result = (NoiseTrafficParam().calculate_score(input_) + NoiseOtherParam().calculate_score(input_)) / 2
         return result.filter(items=['score'])

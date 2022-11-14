@@ -8,8 +8,7 @@ import pandas as pd
 class TestNoiseParam(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.data = Data()
-        self.np = NoiseParam(self.data)
+        self.np = NoiseParam()
         NoiseOtherParam.get_interval = MagicMock()
         NoiseOtherParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
         NoiseOtherParam.make_df_copy = MagicMock()

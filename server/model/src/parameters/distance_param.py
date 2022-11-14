@@ -8,8 +8,8 @@ from server.model.src.data.data import Data
 
 class DistanceParam(ParamInterface):
     """Class for calculating score for age-parameter"""
-    def __init__(self, data: Data):
-        super().__init__(data)
+    def __init__(self):
+        super().__init__()
         self.INPUT_NAME = "distance_input"
 
     def give_score(self, bydel: shapely.geometry.multipolygon.MultiPolygon, pos: shapely.geometry.point.Point,

@@ -8,8 +8,7 @@ import pandas as pd
 class TestPriceParam(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.data = Data()
-        self.pp = PriceParam(self.data)
+        self.pp = PriceParam()
         PriceParam.make_df_copy = MagicMock()
         PriceParam.make_df_copy.return_value = pd.read_json('mock_data/price.json')
 

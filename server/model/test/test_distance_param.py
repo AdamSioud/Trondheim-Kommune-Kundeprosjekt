@@ -9,8 +9,7 @@ import geopandas as gpd
 class TestDistanceParam(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.data = Data()
-        self.dp = DistanceParam(self.data)
+        self.dp = DistanceParam()
         DistanceParam.make_df_copy = MagicMock()
         DistanceParam.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
 

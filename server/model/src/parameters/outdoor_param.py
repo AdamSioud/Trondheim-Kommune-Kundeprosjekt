@@ -6,6 +6,6 @@ class OutdoorParam(EnvironmentParam):
     """Class for calculating score for outdoor param. The data tells portion of the inhabitants that are satisfied with
     the availability of nature and outdoor areas in the area.
     """
-    def __init__(self, data: Data):
-        super().__init__(data, 'outdoorLife')
+    def __init__(self):
+        super().__init__('outdoorLife')
         self.INPUT_NAME = 'outdoor_input'
