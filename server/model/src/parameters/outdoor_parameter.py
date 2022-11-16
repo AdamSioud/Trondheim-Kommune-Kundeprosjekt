@@ -1,8 +1,7 @@
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_neighborhood_parameter import AbstractNeighborhoodParameter
 
 
-class OutdoorParam(EnvironmentParam):
+class OutdoorParameter(AbstractNeighborhoodParameter):
     """Class for calculating score for outdoor param. The data tells portion of the inhabitants that are satisfied with
     the availability of nature and outdoor areas in the area.
     """

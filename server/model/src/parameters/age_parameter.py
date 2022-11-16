@@ -1,9 +1,8 @@
 import pandas as pd
-from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_parameter import AbstractParameter
 
 
-class AgeParam(ParamInterface):
+class AgeParameter(AbstractParameter):
     """Class for calculating score for age-parameter"""
     def __init__(self):
         super().__init__()
@@ -49,7 +48,6 @@ class AgeParam(ParamInterface):
         for sel in inp['selected']:
             clms.append(sel + ".portion")
         weight = inp['weight']
-        # should .round(2) be here. result becomes different ... ??
         result['score'] = result[clms].sum(axis=1).round(2)\
             .apply(lambda price: self.give_score(price, percent) * weight)
         return result.filter(items=['score'])

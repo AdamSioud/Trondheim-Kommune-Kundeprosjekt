@@ -1,9 +1,9 @@
 import pandas as pd
-from server.model.src.data.data import Data
-from server.model.src.parameters.param_interface import ParamInterface
+from server.model.src.data.data_manager import DataManager
+from server.model.src.parameters.abstract_parameter import AbstractParameter
 
 
-class PriceParam(ParamInterface):
+class PriceParameter(AbstractParameter):
     """Class for calculating score for price-parameter"""
     def __init__(self):
         super().__init__()

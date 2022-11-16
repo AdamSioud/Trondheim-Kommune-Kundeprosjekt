@@ -1,34 +1,34 @@
 import unittest
 from unittest.mock import MagicMock
 from shapely.geometry import Point
-from server.model.src.models import Model
-from server.model.src.parameters.age_param import AgeParam
+from server.model.src.map_manager import MapManager
+from server.model.src.parameters.age_parameter import AgeParameter
 import pandas as pd
 import geopandas as gpd
-from server.model.src.parameters.distance_param import DistanceParam
-from server.model.src.parameters.price_param import PriceParam
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
+from server.model.src.parameters.distance_parameter import DistanceParameter
+from server.model.src.parameters.price_parameter import PriceParameter
+from server.model.src.parameters.abstract_neighborhood_parameter import AbstractNeighborhoodParameter
 
 
-class TestModel(unittest.TestCase):
+class TestMapManager(unittest.TestCase):
     def setUp(self) -> None:
-        self.m = Model()
-        Model.make_df_copy = MagicMock()
-        Model.make_df_copy.return_value = pd.read_json('mock_data/general_df.json')
+        self.m = MapManager()
+        MapManager.make_df_copy = MagicMock()
+        MapManager.make_df_copy.return_value = pd.read_json('mock_data/general_df.json')
 
-        AgeParam.make_df_copy = MagicMock()
-        AgeParam.make_df_copy.return_value = pd.read_json('mock_data/age.json')
+        AgeParameter.make_df_copy = MagicMock()
+        AgeParameter.make_df_copy.return_value = pd.read_json('mock_data/age.json')
 
-        DistanceParam.make_df_copy = MagicMock()
-        DistanceParam.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
+        DistanceParameter.make_df_copy = MagicMock()
+        DistanceParameter.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
 
-        EnvironmentParam.get_interval = MagicMock()
-        EnvironmentParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
-        EnvironmentParam.make_df_copy = MagicMock()
-        EnvironmentParam.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
+        AbstractNeighborhoodParameter.get_interval = MagicMock()
+        AbstractNeighborhoodParameter.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
+        AbstractNeighborhoodParameter.make_df_copy = MagicMock()
+        AbstractNeighborhoodParameter.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
 
-        PriceParam.make_df_copy = MagicMock()
-        PriceParam.make_df_copy.return_value = pd.read_json('mock_data/price.json')
+        PriceParameter.make_df_copy = MagicMock()
+        PriceParameter.make_df_copy.return_value = pd.read_json('mock_data/price.json')
 
     def test_calculate_score(self):
         par_input = {

@@ -1,23 +1,23 @@
 import unittest
-from server.model.src.parameters.noise_param import NoiseParam, NoiseTrafficParam, NoiseOtherParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.noise_parameter import NoiseParameter, NoiseTrafficParameter, NoiseOtherParameter
+from server.model.src.data.data_manager import DataManager
 from unittest.mock import MagicMock
 import pandas as pd
 
 
-class TestNoiseParam(unittest.TestCase):
+class TestNoiseParameter(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.np = NoiseParam()
-        NoiseOtherParam.get_interval = MagicMock()
-        NoiseOtherParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
-        NoiseOtherParam.make_df_copy = MagicMock()
-        NoiseOtherParam.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
+        self.np = NoiseParameter()
+        NoiseOtherParameter.get_interval = MagicMock()
+        NoiseOtherParameter.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
+        NoiseOtherParameter.make_df_copy = MagicMock()
+        NoiseOtherParameter.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
 
-        NoiseTrafficParam.get_interval = MagicMock()
-        NoiseTrafficParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
-        NoiseTrafficParam.make_df_copy = MagicMock()
-        NoiseTrafficParam.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
+        NoiseTrafficParameter.get_interval = MagicMock()
+        NoiseTrafficParameter.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
+        NoiseTrafficParameter.make_df_copy = MagicMock()
+        NoiseTrafficParameter.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
 
     def test_calculate_score(self):
         inp = {

@@ -1,43 +1,43 @@
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from server.model.src.parameters.age_param import AgeParam
-from server.model.src.parameters.culture_param import CultureParam
-from server.model.src.parameters.distance_param import DistanceParam
-from server.model.src.parameters.grocery_param import GroceryParam
-from server.model.src.parameters.outdoor_param import OutdoorParam
-from server.model.src.parameters.price_param import PriceParam
-from server.model.src.parameters.safety_param import SafetyParam
-from server.model.src.parameters.transport_param import TransportParam
-from server.model.src.parameters.walkway_param import WalkwayParam
-from server.model.src.parameters.well_being_param import WellBeingParam
-from server.model.src.parameters.noise_param import NoiseParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.age_parameter import AgeParameter
+from server.model.src.parameters.culture_parameter import CultureParameter
+from server.model.src.parameters.distance_parameter import DistanceParameter
+from server.model.src.parameters.grocery_parameter import GroceryParameter
+from server.model.src.parameters.outdoor_parameter import OutdoorParameter
+from server.model.src.parameters.price_parameter import PriceParameter
+from server.model.src.parameters.safety_parameter import SafetyParameter
+from server.model.src.parameters.transport_parameter import TransportParameter
+from server.model.src.parameters.walkway_parameter import WalkwayParameter
+from server.model.src.parameters.well_being_parameter import WellBeingParameter
+from server.model.src.parameters.noise_parameter import NoiseParameter
+from server.model.src.data.data_manager import DataManager
 
 
-class Model:
+class MapManager:
     """The model doing calculation for all the parameters"""
 
     def __init__(self):
-        self.data = Data()
+        self.data_manager = DataManager()
         self.parameters = [
-            PriceParam(),
-            AgeParam(),
-            DistanceParam(),
-            WellBeingParam(),
-            SafetyParam(),
-            CultureParam(),
-            OutdoorParam(),
-            TransportParam(),
-            WalkwayParam(),
-            GroceryParam(),
-            SafetyParam(),
-            NoiseParam()
+            PriceParameter(),
+            AgeParameter(),
+            DistanceParameter(),
+            WellBeingParameter(),
+            SafetyParameter(),
+            CultureParameter(),
+            OutdoorParameter(),
+            TransportParameter(),
+            WalkwayParameter(),
+            GroceryParameter(),
+            SafetyParameter(),
+            NoiseParameter()
         ]
 
     def make_df_copy(self):
         """Makes a copy of the general DataFrame."""
-        return self.data.GENERAL_DF.copy()
+        return self.data_manager.GENERAL_DF.copy()
 
     def calculate_scores(self, param_input: dict) -> pd.DataFrame:
         """
@@ -71,8 +71,8 @@ class Model:
     def generate_map(self, param_input: dict) -> gpd.GeoDataFrame:
         """Generates a GeoDataFrame from the result from calculate_scores"""
         result = self.calculate_scores(param_input)
-        return gpd.GeoDataFrame(result, geometry=self.data.GEOMETRY)
+        return gpd.GeoDataFrame(result, geometry=self.data_manager.GEOMETRY)
 
     def get_zone_by_id(self, i: int):
         """Gets the data of a single zone by its id."""
-        return self.data.get_zone_by_id(i)
+        return self.data_manager.get_zone_by_id(i)

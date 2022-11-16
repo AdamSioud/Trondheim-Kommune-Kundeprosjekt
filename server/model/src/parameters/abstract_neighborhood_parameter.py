@@ -1,9 +1,8 @@
 import pandas as pd
-from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_parameter import AbstractParameter
 
 
-class EnvironmentParam(ParamInterface):
+class AbstractNeighborhoodParameter(AbstractParameter):
     """Abstract class for calculating score for an environment-parameter"""
     def __init__(self, category: str):
         super().__init__()
@@ -13,7 +12,7 @@ class EnvironmentParam(ParamInterface):
 
     def get_interval(self) -> list:
         """Returns the correct interval from data_interval.json"""
-        inter = self.data.INTERVAL_DFS.get('neighborhood')[self.category + '.interval'][1:]
+        inter = self.data_manager.INTERVAL_DFS.get('neighborhood')[self.category + '.interval'][1:]
         interval_list = []
         for i in range(1, len(inter) + 1):
             interval_list.append(inter.get(i) * 0.01)

@@ -2,11 +2,10 @@ import pandas as pd
 import geopandas as gpd
 import shapely
 from shapely.geometry import Point
-from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_parameter import AbstractParameter
 
 
-class DistanceParam(ParamInterface):
+class DistanceParameter(AbstractParameter):
     """Class for calculating score for age-parameter"""
     def __init__(self):
         super().__init__()
@@ -29,7 +28,7 @@ class DistanceParam(ParamInterface):
 
     def make_df_copy(self) -> gpd.GeoDataFrame:
         """Makes a copy of the general-dataframe and adds the geometry-column."""
-        return self.data.add_geometry_column(self.data.GENERAL_DF).copy()
+        return self.data_manager.add_geometry_column(self.data_manager.GENERAL_DF).copy()
 
     def validate_input(self, inp: dict) -> None:
         self.validate_args(inp, ['position', 'weight'])

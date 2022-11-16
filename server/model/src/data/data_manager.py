@@ -55,7 +55,7 @@ def read_json(file_path: str) -> dict:
     return df_is
 
 
-class Data:
+class DataManager:
     """Class for accessing the data used in the backend."""
     instance = None
     path_base = Path(__file__).resolve().parent
@@ -64,7 +64,7 @@ class Data:
 
     def __new__(cls, *args, **kwargs):
         if cls.instance is None:
-            cls.instance = super(Data, cls).__new__(cls)
+            cls.instance = super(DataManager, cls).__new__(cls)
         return cls.instance
 
     def add_geometry_column(self, df: pd.DataFrame) -> gpd.GeoDataFrame:

@@ -1,12 +1,12 @@
-from server.model.src.data.data import Data
+from server.model.src.data.data_manager import DataManager
 from abc import ABC, abstractmethod
 import pandas as pd
 
 
-class ParamInterface(ABC):
+class AbstractParameter(ABC):
     """Abstract class for parameters"""
     def __init__(self):
-        self.data = Data()
+        self.data_manager = DataManager()
 
     @abstractmethod
     def give_score(self, *args) -> int:
@@ -36,7 +36,7 @@ class ParamInterface(ABC):
 
     def make_df_copy(self, key: str) -> pd.DataFrame:
         """Makes a copy of the DataFrame with the given key."""
-        return self.data.DFS.get(key).copy()
+        return self.data_manager.DFS.get(key).copy()
 
     @abstractmethod
     def calculate_score(self, inp: dict) -> pd.DataFrame:

@@ -1,16 +1,16 @@
 import unittest
 from shapely.speedups._speedups import Point
 from unittest.mock import MagicMock
-from server.model.src.parameters.distance_param import DistanceParam
+from server.model.src.parameters.distance_parameter import DistanceParameter
 import geopandas as gpd
 
 
-class TestDistanceParam(unittest.TestCase):
+class TestDistanceParameter(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.dp = DistanceParam()
-        DistanceParam.make_df_copy = MagicMock()
-        DistanceParam.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
+        self.dp = DistanceParameter()
+        DistanceParameter.make_df_copy = MagicMock()
+        DistanceParameter.make_df_copy.return_value = gpd.read_file('mock_data/distance.json')
 
     def test_give_score(self):
         pass

@@ -1,16 +1,16 @@
 import unittest
 from unittest.mock import MagicMock
-from server.model.src.parameters.price_param import PriceParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.price_parameter import PriceParameter
+from server.model.src.data.data_manager import DataManager
 import pandas as pd
 
 
-class TestPriceParam(unittest.TestCase):
+class TestPriceParameter(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.pp = PriceParam()
-        PriceParam.make_df_copy = MagicMock()
-        PriceParam.make_df_copy.return_value = pd.read_json('mock_data/price.json')
+        self.pp = PriceParameter()
+        PriceParameter.make_df_copy = MagicMock()
+        PriceParameter.make_df_copy.return_value = pd.read_json('mock_data/price.json')
 
     def test_give_score(self):
         # TODO: add edge-cases. negative

@@ -1,8 +1,7 @@
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_neighborhood_parameter import AbstractNeighborhoodParameter
 
 
-class WellBeingParam(EnvironmentParam):
+class WellBeingParameter(AbstractNeighborhoodParameter):
     """Class for calculating score for well-being param. The data tells the portion of the inhabitants that enjoy living
     in the area.
     """

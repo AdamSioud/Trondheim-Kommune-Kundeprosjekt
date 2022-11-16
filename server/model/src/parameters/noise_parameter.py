@@ -1,9 +1,8 @@
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
-from server.model.src.parameters.param_interface import ParamInterface
-from server.model.src.data.data import Data
+from server.model.src.parameters.abstract_neighborhood_parameter import AbstractNeighborhoodParameter
+from server.model.src.parameters.abstract_parameter import AbstractParameter
 
 
-class NoiseTrafficParam(EnvironmentParam):
+class NoiseTrafficParameter(AbstractNeighborhoodParameter):
 
     def __init__(self):
         super().__init__('noiseTraffic')
@@ -19,7 +18,7 @@ class NoiseTrafficParam(EnvironmentParam):
         return 1
 
 
-class NoiseOtherParam(EnvironmentParam):
+class NoiseOtherParameter(AbstractNeighborhoodParameter):
 
     def __init__(self):
         super().__init__('noiseOther')
@@ -35,7 +34,7 @@ class NoiseOtherParam(EnvironmentParam):
         return 1
 
 
-class NoiseParam(ParamInterface):
+class NoiseParameter(AbstractParameter):
 
     def __init__(self):
         super().__init__()
@@ -48,5 +47,5 @@ class NoiseParam(ParamInterface):
         pass
 
     def calculate_score(self, input_):
-        result = (NoiseTrafficParam().calculate_score(input_) + NoiseOtherParam().calculate_score(input_)) / 2
+        result = (NoiseTrafficParameter().calculate_score(input_) + NoiseOtherParameter().calculate_score(input_)) / 2
         return result.filter(items=['score'])

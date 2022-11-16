@@ -1,16 +1,16 @@
 import unittest
 from unittest.mock import MagicMock
-from server.model.src.parameters.age_param import AgeParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.age_parameter import AgeParameter
+from server.model.src.data.data_manager import DataManager
 import pandas as pd
 
 
-class TestAgeParam(unittest.TestCase):
+class TestAgeParameter(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.ap = AgeParam()
-        AgeParam.make_df_copy = MagicMock()
-        AgeParam.make_df_copy.return_value = pd.read_json('mock_data/age.json')
+        self.ap = AgeParameter()
+        AgeParameter.make_df_copy = MagicMock()
+        AgeParameter.make_df_copy.return_value = pd.read_json('mock_data/age.json')
 
     def test_give_score(self):
         self.assertEqual(self.ap.give_score(100, 100), 5)

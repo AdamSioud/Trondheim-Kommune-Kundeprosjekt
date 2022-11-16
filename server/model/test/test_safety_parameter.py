@@ -1,21 +1,19 @@
 import unittest
-from server.model.src.parameters.safety_param import SafetyParam
-from server.model.src.parameters.environment_param_interface import EnvironmentParam
-from server.model.src.data.data import Data
+from server.model.src.parameters.safety_parameter import SafetyParameter
+from server.model.src.parameters.abstract_neighborhood_parameter import AbstractNeighborhoodParameter
+from server.model.src.data.data_manager import DataManager
 from unittest.mock import MagicMock
 import pandas as pd
 
 
-class TestSafetyParam(unittest.TestCase):
+class TestSafetyParameter(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.sp = SafetyParam()
-        # EnvironmentParam.get_interval = MagicMock()
-        # EnvironmentParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.9]
-        SafetyParam.get_interval = MagicMock()
-        SafetyParam.get_interval.return_value = [0.75, 0.8, 0.85, 0.90]
-        SafetyParam.make_df_copy = MagicMock()
-        SafetyParam.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
+        self.sp = SafetyParameter()
+        SafetyParameter.get_interval = MagicMock()
+        SafetyParameter.get_interval.return_value = [0.75, 0.8, 0.85, 0.90]
+        SafetyParameter.make_df_copy = MagicMock()
+        SafetyParameter.make_df_copy.return_value = pd.read_json('mock_data/neighborhood.json')
 
     def test_give_score(self):
         self.assertEqual(self.sp.give_score(0.50), 1)
