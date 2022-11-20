@@ -43,7 +43,7 @@ def read_geojson(file_path: str) -> Tuple[dict, pd.DataFrame, gpd.GeoSeries]:
     return dfs, general_df, geo_clm
 
 
-def read_json(file_path: str) -> dict:
+def read_interval_json(file_path: str) -> dict:
     """Reads the JSON file containing the intervals and stores them in a dict.
     :param file_path: The file path.
     :return: dict containing the intervals.
@@ -55,12 +55,33 @@ def read_json(file_path: str) -> dict:
     return df_is
 
 
+def read_general_json(file_path: str) -> dict:
+    with open(file_path, "r", encoding='utf-8') as fp:
+        data = json.loads(fp.read())
+    return data
+
+
+def merge_noise_data(neighborhood: dict):
+    neighborhood['noiseM'] = {
+        'portion': (neighborhood['noiseOtherM']['portion'] + neighborhood['noiseTrafficM']['portion']) / 2
+    }
+    neighborhood['noiseW'] = {
+        'portion': (neighborhood['noiseOtherW']['portion'] + neighborhood['noiseTrafficW']['portion']) / 2
+    }
+    neighborhood.pop('noiseOtherM')
+    neighborhood.pop('noiseTrafficM')
+    neighborhood.pop('noiseOtherW')
+    neighborhood.pop('noiseTrafficW')
+    return neighborhood
+
+
 class DataManager:
     """Class for accessing the data used in the backend."""
     instance = None
     path_base = Path(__file__).resolve().parent
     DFS, GENERAL_DF, GEOMETRY = read_geojson(str(path_base / 'data.geojson'))
-    INTERVAL_DFS = read_json(str(path_base / 'data_interval.json'))
+    INTERVAL_DFS = read_interval_json(str(path_base / 'data_interval.json'))
+    GENERAL_DATA = read_general_json(str(path_base / 'data_general.json'))
 
     def __new__(cls, *args, **kwargs):
         if cls.instance is None:
@@ -80,10 +101,14 @@ class DataManager:
         """Returns all the date for a single zone
         :param i: the index of the zone
         :return: a JSON string with the data"""
-        with open(self.path_base / 'data.geojson', "r") as fp:
+        with open(self.path_base / 'data.geojson', "r", encoding='utf-8') as fp:
             data = json.loads(fp.read())
         try:
             data = data['features'][i]['properties']
+            data['neighborhood'] = merge_noise_data(data['neighborhood'])
             return json.dumps(data)
         except IndexError:
             raise IndexError(f'id out of range. Has to be between 0 and {len(data["features"]) - 1}')
+
+    def get_general_data(self) -> str:
+        return json.dumps(self.GENERAL_DATA)

@@ -76,3 +76,7 @@ class MapManager:
     def get_zone_by_id(self, i: int):
         """Gets the data of a single zone by its id."""
         return self.data_manager.get_zone_by_id(i)
+
+    def get_general_data(self):
+        """Gets the data of a single zone by its id."""
+        return self.data_manager.get_general_data()

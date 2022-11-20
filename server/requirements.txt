@@ -1,9 +1,0 @@
-pandas
-geopandas
-Flask
-flask_cors
-flask_restful
-folium
-matplotlib
-mapclassify
-shapely
