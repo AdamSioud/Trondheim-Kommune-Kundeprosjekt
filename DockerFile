@@ -1,0 +1,11 @@
+FROM osgeo/gdal:alpine-normal-latest
+WORKDIR /back
+COPY ./ .
+ENV HOST=127.0.0.1 PORT=8082 PYTHONPATH=. C_INCLUDE_PATH=/usr/include/python3.10/Python.h
+RUN apk update && \
+    apk upgrade && \
+    apk add build-base py3-pip python3-dev&& \
+    python3 -m pip install -U pip wheel setuptools &&  \
+    pip3 install numpy Fiona Pyproj && \
+    pip3 install -r requirements.txt
+CMD ["waitress-serve", "--port=${port}", "--host ${host}", "server:api.app"]

@@ -1,5 +1,20 @@
 # Trondheim Kommune Kundeprosjekt 
 
+## Presentation
+Trondheim Kommune has commissioned a group of students to create a prototype to find out the best place to live in Trondheim according to certain criteria
+
+This project is divided into two parts, this repository is the server part (backend).
+
+You can find the interface part (frontend) here: https://github.com/AdamSioud/Trondheim-Kommune-Prosjekt-Frontend
+
+A part of the repository is dedicated to the generation of GeoJSON (our database): `generate_geojson`.
+Another part is dedicated to the server with Flask: ``server``
+
+## Installation
+You can find more details about the installation with the following folders:
+- [`generate_geojson`](/generate_geojson/README.md)
+- [`server`](/server/README.md)
+
 ## Folder structure
 <pre>
 .
@@ -44,7 +59,3 @@
     │       └── test_safety_param.py
     └── requirements.txt
 </pre>
-
-Our group got given a task from a client (Trondheim Kommune) that is to be carried out as a project. And here is our project..
-
-WE ARE BUILDING

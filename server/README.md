@@ -2,24 +2,12 @@
 
 
 
-https://medium.com/geekculture/how-to-architect-your-flask-rest-api-abf95637d9f5
-=======
---- Architecture
-
-https://medium.com/geekculture/how-to-architect-your-flask-rest-api-abf95637d9f5
-
-
-
---- Hosting
-
-https://www.pythonanywhere.com/?affiliate_id=00535ced 
-
 ## Installation (WINDOWS)
 1. Install [python](https://www.python.org/downloads/)
 2. Check if pip is installed: ``pip --version``
 3. Configure your PATH
 4. Clone this repository: ``git clone https://github.com/AdamSioud/Trondheim-Kommune-Kundeprosjekt-API.git``
-5. In the parent folder of the repository, create a new environment: ``python -m venv ./venv``
+5. In the parent folder of the <u>**repository**</u>, create a new environment: ``python -m venv .\venv``
 6. Activate the environment: ``.\venv\Scripts\activate``
 7. Upgrade pip and install wheel: ``python -m pip install -U pip wheel setuptools``
 8. In ``venv`` create a new folder: `geopandas dependencies`
@@ -29,8 +17,9 @@ https://www.pythonanywhere.com/?affiliate_id=00535ced
 12. Go in the project: ``cd ..\..\Trondheim-Kommune-Kundeprosjekt-API``
 13. Run ``pip install -r requirements.txt``
 
-
-I followed the instructions [here](https://towardsdatascience.com/geopandas-installation-the-easy-way-for-windows-31a666b3610f) 
+Each time you want to launch the application, you must activate the virtual environment (step 6).
+Once done, you must make this command ``set PYTHONPATH=.`` in the directory of the repository (probably in `Trondheim-Kommune-Kundeprosjekt-API`)
+Finally you can launch the app: ``python server\api.py``
 
 ## Installation (MAC)
 
@@ -47,4 +36,8 @@ I followed the instructions [here](https://towardsdatascience.com/geopandas-inst
 11. Go in the project: ``cd ../../Trondheim-Kommune-Kundeprosjekt-API``
 12. Run ``pip3 install -r requirements.txt``
 
+You can launch the app with this command: ``python server/api.py`` 
+If the command above does not work take a look to the Windows installation
 
+## Installation (Docker)
+WIP

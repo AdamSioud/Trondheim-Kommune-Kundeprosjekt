@@ -1,12 +1,12 @@
+import os
+
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from server.model.src.map_manager import MapManager
+from dotenv import load_dotenv
 
-app = Flask(__name__)
-api = Api(app)
-CORS(app)
-MAP_MANAGER = MapManager()
+load_dotenv()
 
 
 class Map(Resource):
@@ -35,10 +35,17 @@ class GeneralData(Resource):
         return MAP_MANAGER.get_general_data()
 
 
+app = Flask(__name__)
+api = Api(app)
+CORS(app)
+MAP_MANAGER = MapManager()
+
 api.add_resource(Map, '/map')
 api.add_resource(Score, '/score')
 api.add_resource(ZoneData, '/zone/<int:zone_id>')
 api.add_resource(GeneralData, '/generaldata')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    debug = os.getenv("DEBUG", True)
+    port = os.getenv("PORT", 5001)
+    app.run(debug=debug == "True", port=port)
