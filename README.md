@@ -21,29 +21,28 @@ You can find more details about the installation with the following folders:
 ├── README.md
 └── server
     ├── README.md
-    ├── app.py
+    ├── api.py
     ├── model
-    │   ├── generated_map.html
     │   ├── src
     │   │   ├── data
     │   │   │   ├── data.geojson
-    │   │   │   ├── data.py
-    │   │   │   └── data_interval.json
-    │   │   ├── models.py
+    │   │   │   ├── data_interval.json
+    │   │   │   └── data_manager.py
+    │   │   ├── map_manager.py
     │   │   └── parameters
-    │   │       ├── age_param.py
-    │   │       ├── culture_param.py
-    │   │       ├── distance_param.py
-    │   │       ├── environment_param_interface.py
-    │   │       ├── grocery_param.py
-    │   │       ├── noise_param.py
-    │   │       ├── outdoor_param.py
-    │   │       ├── param_interface.py
-    │   │       ├── price_param.py
-    │   │       ├── safety_param.py
-    │   │       ├── transport_param.py
-    │   │       ├── walkway_param.py
-    │   │       └── well_being_param.py
+    │   │       ├── abstract_neighborhood_parameter.py
+    │   │       ├── abstract_parameter.py
+    │   │       ├── age_parameter.py
+    │   │       ├── culture_parameter.py
+    │   │       ├── distance_parameter.py
+    │   │       ├── grocery_parameter.py
+    │   │       ├── noise_parameter.py
+    │   │       ├── outdoor_parameter.py
+    │   │       ├── price_parameter.py
+    │   │       ├── safety_parameter.py
+    │   │       ├── transport_parameter.py
+    │   │       ├── walkway_parameter.py
+    │   │       └── well_being_parameter.py
     │   └── test
     │       ├── mock_data
     │       │   ├── age.json
@@ -51,11 +50,12 @@ You can find more details about the installation with the following folders:
     │       │   ├── general_df.json
     │       │   ├── neighborhood.json
     │       │   └── price.json
-    │       ├── test_age_param.py
-    │       ├── test_distance_param.py
-    │       ├── test_models.py
-    │       ├── test_noise_param.py
-    │       ├── test_price_param.py
-    │       └── test_safety_param.py
+    │       ├── test_age_parameter.py
+    │       ├── test_distance_parameter.py
+    │       ├── test_map_manager.py
+    │       ├── test_noise_parameter.py
+    │       ├── test_price_parameter.py
+    │       └── test_safety_parameter.py
     └── requirements.txt
+
 </pre>
