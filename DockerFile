@@ -8,4 +8,4 @@ RUN apk update && \
     python3 -m pip install -U pip wheel setuptools &&  \
     pip3 install numpy Fiona Pyproj && \
     pip3 install -r requirements.txt
-CMD ["waitress-serve", "--port=${port}", "--host ${host}", "server:api.app"]
+CMD ["waitress-serve", "--port=${PORT}", "--host ${HOST}", "server:api.app"]
